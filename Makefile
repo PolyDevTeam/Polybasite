@@ -2,7 +2,7 @@ LIBS= -I../SFML/include -L../SFML/lib -lsfml-graphics -lsfml-window -lsfml-syste
 
 CC= g++
 CFLAGS= -Wall
-EXECS= Polybasite
+EXECS= Polybasite.exe
 
 OBJ= out/main.o
 
