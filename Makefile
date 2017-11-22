@@ -2,7 +2,7 @@ LIBS= -I../SFML/include -L../SFML/lib -lsfml-graphics -lsfml-window -lsfml-syste
 
 CC= g++
 CFLAGS= -Wall
-EXECS= Polybasite
+EXECS= Polybasite.exe
 
 OBJ= out/main.o
 
@@ -24,9 +24,9 @@ out/main.o: src/main.cpp
 
 clean:
 	@echo "*** Cleaning all .o ***"
-	rm out/*.o
+	rm -f out/*.o
 	@echo "*** Cleaning executable ***"
-	rm $(EXECS)
+	rm -f $(EXECS)
 
 mrproper:
 	clean

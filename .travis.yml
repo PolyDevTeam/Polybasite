@@ -1,0 +1,14 @@
+language: cpp
+sudo: false
+os:
+    - linux
+
+install:
+    - sudo apt-get install libsfml-dev
+
+compiler:
+    - g++
+
+script:
+    - mkdir out
+    - make release
