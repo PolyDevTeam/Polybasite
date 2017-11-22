@@ -5,11 +5,10 @@ os:
 
 install:
     - sudo apt-get install libsfml-dev
-    
+
 compiler:
     - g++
 
 script:
     - mkdir out
-    - export LD_LIBRARY_PATH=../SFML/lib
     - make release
