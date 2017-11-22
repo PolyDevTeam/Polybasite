@@ -1,0 +1,7 @@
+language: cpp
+sudo: false
+compiler:
+    - g++
+script:
+    - mkdir out
+    - make release
