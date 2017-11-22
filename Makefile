@@ -24,9 +24,9 @@ out/main.o: src/main.cpp
 
 clean:
 	@echo "*** Cleaning all .o ***"
-	rm out/*.o
+	rm -f out/*.o
 	@echo "*** Cleaning executable ***"
-	rm $(EXECS)
+	rm -f $(EXECS)
 
 mrproper:
 	clean
