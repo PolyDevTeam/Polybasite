@@ -1,0 +1,5 @@
+- cas d'utilisation -> diagrammes de séquences -> diagrammes d'activité
+- Modèle du domaine 
+- Diagrammes de paquetage
+- Diagrammes d'états transitions
+- Diagrammes d'activités
