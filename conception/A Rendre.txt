@@ -1,0 +1,10 @@
+pour Mavromatis
+	- cahier des charges 04/12
+	- début cahier de conception + rapport d'avancement 18/12
+	- fin cahier de conception + rapport d'avancement 15/01
+	- document finaux début fevrier
+
+pour Génie Logiciel
+	- Spec - PRJ
+	- Cahier de conception - CCG
+	- Test - TST
