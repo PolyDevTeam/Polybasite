@@ -1,12 +1,14 @@
+# TODO : Reworks Makefile rules with good depedency
+
 LIBS= -I../SFML/include -L../SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 CC= g++
-CFLAGS= -Wall
+CFLAGS= -Wall -std=c++11
 EXECS= Polybasite.exe
 
-OBJ= out/main.o
+OBJ= out/Color.o out/Entity.o out/Map.o out/Game.o out/main.o
 
-all: out/main.o
+all: out/Color.o out/Entity.o out/Map.o out/Game.o out/main.o
 	@echo "*** Building the game ***"
 	$(CC) -o $(EXECS) $^ $(CFLAGS) $(LIBS)
 
@@ -20,6 +22,22 @@ debug: all
 
 out/main.o: src/main.cpp
 	@echo "*** Building main.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Game.o: src/Game.cpp
+	@echo "*** Building Game.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Map.o: src/Map.cpp
+	@echo "*** Building Map.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Entity.o: src/Entity.cpp
+	@echo "*** Building Entity.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Color.o: src/Color.cpp
+	@echo "*** Building Color.o ***"
 	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
 
 clean:
