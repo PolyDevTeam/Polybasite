@@ -1,5 +1,14 @@
 #include <SFML/Graphics.hpp>
 
+#ifndef __CASE_HPP__
+#define __CASE_HPP__
+
+#include "../header/Case.hpp"
+
+#endif // __CASE_HPP__
+
+
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
