@@ -1,16 +1,16 @@
+#include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "Game.hpp"
-#include "Entity.hpp"
+#include "Basite.hpp"
 #include "Color.hpp"
 
-Entity::~Entity() {
+Basite::~Basite() {
 
 }
 
-void Entity::draw() const {
-//     TODO : Tempory method
-    std::cout << "ENTITY DRAW" << std::endl;
+void Basite::draw() const {
+    std::cout << "DRAW BASITE" << std::endl;
 
     sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
 

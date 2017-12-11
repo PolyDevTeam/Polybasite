@@ -21,6 +21,8 @@ void Game::start() {
 
     Game::m_main_window.setVerticalSyncEnabled(true);
 
+    Game::m_state = STATE_INIT;
+
     while (Game::m_state != STATE_QUIT)
         Game::loop();
 }

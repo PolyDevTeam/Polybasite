@@ -6,14 +6,15 @@
 
 using namespace sf;
 
-class Entity : Sprite {
+class Entity : public Sprite {
 public:
     static const unsigned ENTITY_WIDTH = 16;
     static const unsigned ENTITY_HEIGHT = 16;
 
     Texture m_texture;
 
-    void draw() const;
+    virtual void draw() const;
+    virtual ~Entity();
 };
 
 #endif /* __ENTITY_HPP__ */

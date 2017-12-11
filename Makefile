@@ -8,7 +8,7 @@ EXECS= Polybasite.exe
 
 OBJ= out/Color.o out/Entity.o out/Map.o out/Game.o out/main.o
 
-all: out/Color.o out/Entity.o out/Map.o out/Game.o out/main.o
+all: out/Basite.o out/Bot.o out/Color.o out/Entity.o out/Map.o out/Game.o out/main.o
 	@echo "*** Building the game ***"
 	$(CC) -o $(EXECS) $^ $(CFLAGS) $(LIBS)
 
@@ -38,6 +38,14 @@ out/Entity.o: src/Entity.cpp
 
 out/Color.o: src/Color.cpp
 	@echo "*** Building Color.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Basite.o: src/Basite.cpp
+	@echo "*** Building Basite.o ***"
+	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
+
+out/Bot.o: src/Bot.cpp
+	@echo "*** Building Bot.o ***"
 	$(CC) -o $@ $(CFLAGS) -c $^ $(LIBS)
 
 clean:

@@ -2,7 +2,7 @@
 
 void Map::draw() const {
     for(unsigned i = 0; i < m_entities.size(); ++i) {
-        Entity entity = m_entities[i];
-        entity.draw();
+        Entity* entity = m_entities[i];
+        entity->draw();
     }
 }
