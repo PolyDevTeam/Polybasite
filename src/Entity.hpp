@@ -8,8 +8,8 @@ using namespace sf;
 
 class Entity : public Sprite {
 public:
-    static const unsigned ENTITY_WIDTH = 16;
-    static const unsigned ENTITY_HEIGHT = 16;
+    static const unsigned ENTITY_WIDTH = 20;
+    static const unsigned ENTITY_HEIGHT = 20;
 
     Texture m_texture;
 

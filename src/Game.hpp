@@ -22,7 +22,7 @@ class Game {
 public:
     /* Game constant */
     static const unsigned SCREEN_WIDTH = 1024;
-    static const unsigned SCREEN_HEIGHT = 768;
+    static const unsigned SCREEN_HEIGHT = 650;
 
     static GameState m_state;
     static sf::RenderWindow m_main_window;

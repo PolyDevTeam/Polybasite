@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-class Color : sf::Color {
+class Color : public sf::Color {
 public:
     static const sf::Color Grey;
 };

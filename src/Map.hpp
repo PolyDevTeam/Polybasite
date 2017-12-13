@@ -11,18 +11,8 @@ using namespace std;
 
 class Map {
 public:
-    Map() {
-        // TODO : Tempory
-        m_entities.push_back(new Basite);
-    }
-
-    ~Map() {
-        for(unsigned i = 0; i < m_entities.size(); ++i) {
-            delete m_entities[i];
-            m_entities[i] = 0;
-        }
-    }
-
+    Map();
+    ~Map();
     void draw() const;
 private:
     vector<Entity*> m_entities;
