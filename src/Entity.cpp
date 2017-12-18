@@ -4,6 +4,10 @@
 #include "Entity.hpp"
 #include "Color.hpp"
 
+Entity::Entity(unsigned x, unsigned y) : m_x(x), m_y(y) {
+
+}
+
 Entity::~Entity() {
 
 }

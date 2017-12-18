@@ -5,7 +5,7 @@
 #include "Basite.hpp"
 #include "Color.hpp"
 
-Basite::Basite(unsigned x, unsigned y, unsigned power) : m_x(x), m_y(y), m_power(power) {
+Basite::Basite(unsigned x, unsigned y, unsigned power) : Entity(x, y), m_power(power) {
 
 }
 

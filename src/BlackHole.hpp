@@ -8,14 +8,9 @@ public:
     static const unsigned BLACK_HOLE_PROB = 5;
 
     BlackHole(unsigned x, unsigned y);
-
     virtual ~BlackHole();
 
     virtual void draw() const;
-
-private:
-    unsigned m_x;
-    unsigned m_y;
 };
 
 #endif /* __BLACKHOLE_HPP__ */

@@ -3,7 +3,7 @@
 #include "BlackHole.hpp"
 #include "Game.hpp"
 
-BlackHole::BlackHole(unsigned x, unsigned y) : m_x(x), m_y(y) {
+BlackHole::BlackHole(unsigned x, unsigned y) : Entity(x, y) {
 
 }
 
