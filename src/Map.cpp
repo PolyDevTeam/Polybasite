@@ -1,4 +1,7 @@
 #include "Map.hpp"
+#include "Basite.hpp"
+#include "BlackHole.hpp"
+#include "Bot.hpp"
 
 Map::Map() {
     // TODO : Tempory
@@ -11,14 +14,21 @@ Map::Map() {
 
     for (unsigned i = 0; i < MAP_WIDTH; ++i) {
         for (unsigned j = 0; j < MAP_HEIGHT; ++j) {
-            unsigned power = rand()%(max-min) + min;
-            m_entities.push_back(new Basite(i, j, power));
+            unsigned prob = rand() % 100;
+
+            if (prob <= BlackHole::BLACK_HOLE_PROB) {
+                m_entities.push_back(new BlackHole(i, j));
+            }
+            else {
+                unsigned power = rand() % (max - min) + min;
+                m_entities.push_back(new Basite(i, j, power));
+            }
         }
     }
 }
 
 Map::~Map() {
-    for(unsigned i = 0; i < m_entities.size(); ++i) {
+    for (unsigned i = 0; i < m_entities.size(); ++i) {
         delete m_entities[i];
         m_entities[i] = 0;
     }

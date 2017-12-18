@@ -4,8 +4,6 @@
 #include <vector>
 
 #include "Entity.hpp"
-#include "Basite.hpp"
-#include "Bot.hpp"
 
 using namespace std;
 
