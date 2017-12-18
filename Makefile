@@ -1,5 +1,3 @@
-# TODO : Reworks Makefile rules with good depedency
-
 LIBS= -I../SFML/include -L../SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 CC= g++
