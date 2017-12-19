@@ -2,10 +2,12 @@
 
 #include "Game.hpp"
 #include "Map.hpp"
+#include "Score.hpp"
 
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map;
+Score Game::m_score(600, 0);
 
 void Game::start() {
     if (Game::m_state != STATE_UNINITIALISED)
@@ -45,6 +47,7 @@ void Game::loop() {
 
         // Draw map
         Game::m_map.draw();
+        Game::m_score.draw();
 
         Game::m_main_window.display();
     }

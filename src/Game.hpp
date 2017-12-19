@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Map.hpp"
+#include "Score.hpp"
 
 #define GAME_NAME "Polybasite"
 
@@ -27,6 +28,7 @@ public:
     static GameState m_state;
     static sf::RenderWindow m_main_window;
     static Map m_map;
+    static Score m_score;
 
     static void start();
     static void quit();
