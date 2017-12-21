@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include <SFML/Graphics.hpp>
 
 #include "Map.hpp"
+#include "Bot.hpp"
 
 #define GAME_NAME "Polybasite"
 
@@ -27,8 +29,9 @@ public:
     static GameState m_state;
     static sf::RenderWindow m_main_window;
     static Map m_map;
+    static std::vector<Bot> m_bots;
 
-    static void start();
+    static void start(int argc, char* argv[]);
     static void quit();
 private:
     static void loop();

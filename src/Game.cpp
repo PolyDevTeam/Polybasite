@@ -1,13 +1,16 @@
 #include <iostream>
+#include <vector>
 
 #include "Game.hpp"
 #include "Map.hpp"
+#include "Bot.hpp"
 
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
-Map Game::m_map;
+Map Game::m_map(30, 30);
+std::vector <Bot> Game::m_bots;
 
-void Game::start() {
+void Game::start(int argc, char *argv[]) {
     if (Game::m_state != STATE_UNINITIALISED)
         return;
 
@@ -20,6 +23,21 @@ void Game::start() {
                                settings);
 
     Game::m_main_window.setVerticalSyncEnabled(true);
+
+    // TODO : Initialise bot whith socket communication
+    // TODO : Add logging system after this branch
+
+    srand(time(NULL)); // Rand initialisation
+
+    for (int i = 1; i < argc; ++i) {
+        std::cout << "BOT NAME " << argv[i] << std::endl;
+        // TODO : Select random color
+        // TODO : Add some security to counter two bot at the same position
+        unsigned pos_x = rand() % m_map.getWidth();
+        unsigned pos_y = rand() % m_map.getHeight();
+        Bot bot(argv[i], pos_x, pos_y);
+        Game::m_bots.push_back(bot);
+    }
 
     Game::m_state = STATE_INIT;
 
