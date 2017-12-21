@@ -4,7 +4,7 @@ CC= g++
 CFLAGS= -Wall -std=c++11
 EXECS= Polybasite.exe
 
-OBJ= out/Bot.o out/BlackHole.o out/Color.o out/Basite.o out/Entity.o out/Map.o out/Game.o out/main.o
+OBJ= out/Miner.o out/Bot.o out/BlackHole.o out/Color.o out/Basite.o out/Entity.o out/Map.o out/Game.o out/main.o
 
 all: $(OBJ)
 	@echo "*** Building the game ***"
@@ -48,6 +48,10 @@ out/Bot.o: src/Bot.cpp src/Bot.hpp
 
 out/BlackHole.o: src/BlackHole.cpp src/BlackHole.hpp
 	@echo "*** Building BlackHole.cpp ***"
+	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
+
+out/Miner.o: src/Miner.cpp src/Miner.hpp
+	@echo "*** Building Miner.cpp ***"
 	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
 
 clean:

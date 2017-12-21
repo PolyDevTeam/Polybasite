@@ -12,6 +12,9 @@ public:
     static const unsigned ENTITY_HEIGHT = 20;
 
     Entity(unsigned x, unsigned y);
+    unsigned getX() const;
+    unsigned getY() const;
+
     virtual ~Entity();
 
     virtual void draw() const;
