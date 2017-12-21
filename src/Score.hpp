@@ -15,8 +15,12 @@ public:
     ~Score();
 
     Score(unsigned int x, unsigned int y);
+    Score(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
     void draw() const;
+
+    //TODO : Méthode get nom du Bot
+    //TODO : méthode get score / puissance
 
 private:
     unsigned m_x;
@@ -24,6 +28,9 @@ private:
 
     unsigned m_height;
     unsigned m_width;
+
+    unsigned m_power;
+    unsigned m_name;
 };
 
 #endif /* __SCORE_HPP__ */

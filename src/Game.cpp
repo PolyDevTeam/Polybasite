@@ -7,7 +7,8 @@
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map;
-Score Game::m_score(600, 0);
+vector<Score*> Game::m_scores;
+//Score Game::m_score(605, 0);
 
 void Game::start() {
     if (Game::m_state != STATE_UNINITIALISED)
@@ -24,6 +25,10 @@ void Game::start() {
     Game::m_main_window.setVerticalSyncEnabled(true);
 
     Game::m_state = STATE_INIT;
+
+    for(int i = 0; i < 3; i++){
+        Game::m_scores.push_back(new Score(605, i * 90));
+    }
 
     while (Game::m_state != STATE_QUIT)
         Game::loop();
@@ -47,7 +52,12 @@ void Game::loop() {
 
         // Draw map
         Game::m_map.draw();
-        Game::m_score.draw();
+
+        // Draw Scores
+        for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
+            Game::m_scores[i]->draw();
+        }
+
 
         Game::m_main_window.display();
     }

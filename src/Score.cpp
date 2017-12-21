@@ -13,16 +13,23 @@ Score::Score() {
 }
 
 Score::~Score() {
-
+    delete this;
 }
 
 Score::Score(unsigned int x, unsigned int y) {
-    // TODO : Tempory
     m_x = x;
     m_y = y;
-    m_height = 100;
-    m_width = 300;
+    m_height = 80;
+    m_width = 419;
 }
+
+Score::Score(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
+    m_x = x;
+    m_y = y;
+    m_height = height;
+    m_width = width;
+}
+
 
 
 void Score::draw() const {
@@ -37,15 +44,25 @@ void Score::draw() const {
         std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
     }
 
-    sf::Text text;
+    sf::Text name;
+    name.setFont(font);
+    name.setCharacterSize(18);
+    name.setFillColor(sf::Color::Red);
+    name.move(m_x + 5, m_y + 5);
 
-    text.setFont(font);
-    text.setString("Score Total = " + std::to_string(42));
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::Red);
+    name.setString(m_name);
+
+    sf::Text score;
+    score.setFont(font);
+    score.setCharacterSize(16);
+    score.setFillColor(sf::Color::Black);
+    score.move(m_x + 5, m_y + 35);
+
+    score.setString(m_power);
+
     //text.setStyle(sf::Text::Bold);
 
-    text.move(m_x + 10, m_y + 10);
 
-    Game::m_main_window.draw(text);
+    Game::m_main_window.draw(name);
+    Game::m_main_window.draw(score);
 }
