@@ -26,8 +26,11 @@ void Game::start() {
 
     Game::m_state = STATE_INIT;
 
-    for(int i = 0; i < 3; i++){
-        Game::m_scores.push_back(new Score(605, i * 90));
+    // TODO : Tempory
+    unsigned int a = 42;
+    for(int i = 0; i < 5; i++){
+
+        Game::m_scores.push_back(new Score(i, std::to_string(i), &a, sf::Color(200, 120, i*20, 220) ) );
     }
 
     while (Game::m_state != STATE_QUIT)

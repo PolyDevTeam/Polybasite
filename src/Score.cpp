@@ -4,39 +4,29 @@
 #include "Game.hpp"
 #include "Color.hpp"
 
-Score::Score() {
-    // TODO : Tempory
-    m_x = 300;
-    m_y = 0;
-    m_height = 100;
-    m_width = 300;
-}
 
 Score::~Score() {
     delete this;
 }
 
-Score::Score(unsigned int x, unsigned int y) {
-    m_x = x;
-    m_y = y;
-    m_height = 80;
+Score::Score(unsigned int i, std::string name, unsigned* power, sf::Color color) {
+    // Dimension for 4 Score + 1 total
     m_width = 419;
+    m_height = 100;
+    m_x = 605;
+    // n°eme bot * (ScoreSize + spaceBetween)  + offset up
+    m_y = i * (m_height + 10) + 50;
+    m_name = name;
+    m_power = power;
+    m_color = color;
 }
-
-Score::Score(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
-    m_x = x;
-    m_y = y;
-    m_height = height;
-    m_width = width;
-}
-
 
 
 void Score::draw() const {
     std::cout << "SCORE DRAW" << std::endl;
     sf::RectangleShape rectangle(sf::Vector2f(m_width, m_height));
     rectangle.move(m_x, m_y);
-    rectangle.setFillColor(sf::Color::White);
+    rectangle.setFillColor(m_color);
     Game::m_main_window.draw(rectangle);
 
     sf::Font font;
@@ -58,10 +48,8 @@ void Score::draw() const {
     score.setFillColor(sf::Color::Black);
     score.move(m_x + 5, m_y + 35);
 
-    score.setString(m_power);
-
-    //text.setStyle(sf::Text::Bold);
-
+    score.setString(std::to_string(*m_power));
+    std::cout << *m_power << std::endl;
 
     Game::m_main_window.draw(name);
     Game::m_main_window.draw(score);
