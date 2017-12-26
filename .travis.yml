@@ -4,7 +4,7 @@ os:
     - linux
 
 install:
-    - install: cd /usr/local && sudo wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo tar -xzf SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo cp -r SFML-2.4.2/include . && sudo cp -r SFML-2.4.2/lib . && sudo cp -r SFML-2.4.2/share . && sudo rm -rf SFML-2.4.2 && cd -
+    - cd /usr/local && sudo wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo tar -xzf SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo cp -r SFML-2.4.2/include . && sudo cp -r SFML-2.4.2/lib . && sudo cp -r SFML-2.4.2/share . && sudo rm -rf SFML-2.4.2 && cd -
 
 compiler:
     - g++
