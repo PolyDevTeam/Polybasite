@@ -23,7 +23,6 @@ Score::Score(unsigned int i, std::string name, unsigned* power, sf::Color color)
 
 
 void Score::draw() const {
-    std::cout << "SCORE DRAW" << std::endl;
     sf::RectangleShape rectangle(sf::Vector2f(m_width, m_height));
     rectangle.move(m_x, m_y);
     rectangle.setFillColor(m_color);
@@ -49,7 +48,10 @@ void Score::draw() const {
     score.move(m_x + 5, m_y + 35);
 
     score.setString(std::to_string(*m_power));
-    std::cout << *m_power << std::endl;
+
+
+    //std::cout << "SCORE DRAW" << std::endl;
+    //std::cout << *m_power << std::endl;
 
     Game::m_main_window.draw(name);
     Game::m_main_window.draw(score);
