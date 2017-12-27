@@ -1,11 +1,20 @@
 language: cpp
-sudo: false
+sudo: required
+dist: trusty
 os:
     - linux
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install g++-4.9 gcc-4.9
+addons:
+  apt:
+    sources:
+    # add PPAs with more up-to-date toolchains
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.6
+    packages:
+    # install toolchains
+    - gcc-5
+    - g++-5
+    - clang-3.6
 
 install:
     - cd /usr/local && sudo wget https://www.sfml-dev.org/files/SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo tar -xzf SFML-2.4.2-linux-gcc-64-bit.tar.gz && sudo cp -r SFML-2.4.2/include . && sudo cp -r SFML-2.4.2/lib . && sudo cp -r SFML-2.4.2/share . && sudo rm -rf SFML-2.4.2 && cd -
