@@ -1,4 +1,4 @@
-LIBS= -I../SFML/include -L../SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+LIBS= -lsfml-graphics -lsfml-window -lsfml-system
 
 CC= g++
 CFLAGS= -Wall -std=c++11
