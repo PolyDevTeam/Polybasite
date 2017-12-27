@@ -1,6 +1,7 @@
 #ifndef __BOT_HPP__
 #define __BOT_HPP__
 
+
 #include <string>
 #include <vector>
 
@@ -14,6 +15,7 @@ public:
     Bot(string name, unsigned x, unsigned y);
     virtual ~Bot();
     string getName() const;
+    void connection(unsigned short port);
 private:
     string m_name;
     unsigned m_owner;

@@ -43,6 +43,9 @@ void Game::start(int argc, char *argv[]) {
         Game::m_bots.push_back(bot);
     }
 
+    // TEST BOT connection
+    Game::m_bots[0].connection(7777);
+
     Game::m_state = STATE_INIT;
 
     // TODO : Tempory
