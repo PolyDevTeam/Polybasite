@@ -1,20 +1,18 @@
 #include <iostream>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "Game.hpp"
 #include "Bot.hpp"
 #include "Color.hpp"
+#include "Game.hpp"
 
-Bot::~Bot() {
-
+Bot::Bot(std::string name, unsigned x, unsigned y) : m_name(name) {
+    // Add first miner
+    m_miners.push_back(new Miner(x, y));
 }
 
-void Bot::draw() const {
-    std::cout << "DRAW BOT" << std::endl;
-
-    sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
-
-    rectangle.setFillColor(::Color::Grey);
-
-    Game::m_main_window.draw(rectangle);
+Bot::~Bot() {
+    for (unsigned i = 0; i < m_miners.size(); ++i) {
+        m_miners[i] = 0;
+        delete m_miners[i];
+    }
 }

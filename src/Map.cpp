@@ -1,32 +1,66 @@
-#include "Map.hpp"
+#include <iostream>
+#include <vector>
 
-Map::Map() {
+#include <SFML/Graphics/RectangleShape.hpp>
+
+#include "Game.hpp"
+#include "Map.hpp"
+#include "Basite.hpp"
+#include "BlackHole.hpp"
+#include "Bot.hpp"
+
+Map::Map(unsigned width, unsigned height) {
+    m_width = width;
+    m_height = height;
+
     // TODO : Tempory
-    unsigned MAP_HEIGHT = 30;
-    unsigned MAP_WIDTH = 30;
     unsigned max = 8;
     unsigned min = 1;
 
-    srand(time(NULL)); // initialisation de rand
+    for (unsigned i = 0; i < m_width; ++i) {
+        VEntity line;
 
-    for (unsigned i = 0; i < MAP_WIDTH; ++i) {
-        for (unsigned j = 0; j < MAP_HEIGHT; ++j) {
-            unsigned power = rand()%(max-min) + min;
-            m_entities.push_back(new Basite(i, j, power));
+        for (unsigned j = 0; j < m_height; ++j) {
+            unsigned prob = rand() % 100;
+
+            if (prob <= BlackHole::BLACK_HOLE_PROB) {
+                line.push_back(new BlackHole(i, j));
+            } else {
+                unsigned power = rand() % (max - min) + min;
+                line.push_back(new Basite(i, j, power));
+            }
         }
+
+        m_entities.push_back(line);
     }
 }
 
 Map::~Map() {
-    for(unsigned i = 0; i < m_entities.size(); ++i) {
-        delete m_entities[i];
-        m_entities[i] = 0;
+    for (unsigned i = 0; i < m_entities.size(); ++i) {
+        for (unsigned j = 0; j < m_entities[i].size(); ++j) {
+            delete m_entities[i][j];
+            m_entities[i][j] = 0;
+        }
     }
+}
+
+unsigned Map::getWidth() const {
+    return m_width;
+}
+
+unsigned Map::getHeight() const {
+    return m_height;
 }
 
 void Map::draw() const {
     for (unsigned i = 0; i < m_entities.size(); ++i) {
-        Entity *entity = m_entities[i];
-        entity->draw();
+        for (unsigned j = 0; j < m_entities[i].size(); ++j) {
+            Entity *entity = m_entities[i][j];
+            entity->draw();
+        }
     }
+}
+
+void Map::setEntity(Entity *entity) {
+    m_entities[entity->getX()][entity->getY()] = entity;
 }

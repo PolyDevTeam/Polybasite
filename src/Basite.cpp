@@ -5,7 +5,7 @@
 #include "Basite.hpp"
 #include "Color.hpp"
 
-Basite::Basite(unsigned x, unsigned y, unsigned power) : m_x(x), m_y(y), m_power(power) {
+Basite::Basite(unsigned x, unsigned y, unsigned power) : Entity(x, y), m_power(power) {
 
 }
 
@@ -14,10 +14,8 @@ Basite::~Basite() {
 }
 
 void Basite::draw() const {
-    std::cout << "DRAW BASITE" << std::endl;
-
-    unsigned pos_x = ENTITY_WIDTH * m_x;
-    unsigned pos_y = ENTITY_HEIGHT * m_y;
+    unsigned pos_x = ENTITY_WIDTH * m_x + Map::OFFSET_X;
+    unsigned pos_y = ENTITY_HEIGHT * m_y + Map::OFFSET_Y;
 
     sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
     rectangle.move(pos_x, pos_y);

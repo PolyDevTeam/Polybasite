@@ -4,20 +4,27 @@
 #include <vector>
 
 #include "Entity.hpp"
-#include "Basite.hpp"
-#include "Bot.hpp"
 
 using namespace std;
 
+typedef std::vector<Entity*> VEntity;
+
 class Map {
 public:
-    Map();
+    static const unsigned OFFSET_X = 0;
+    static const unsigned OFFSET_Y = 50;
+
+    Map(unsigned width, unsigned height);
     ~Map();
     void draw() const;
+    void setEntity(Entity* entity);
+
+    unsigned getHeight() const;
+    unsigned getWidth() const;
 private:
-    vector<Entity*> m_entities;
-    unsigned m_height;
+    std::vector<std::vector<Entity*>> m_entities;
     unsigned m_width;
+    unsigned m_height;
 };
 
 #endif /* __MAP_HPP__ */
