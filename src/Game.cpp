@@ -4,11 +4,15 @@
 #include "Game.hpp"
 #include "Map.hpp"
 #include "Bot.hpp"
+#include "Score.hpp"
 
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map(30, 30);
 std::vector <Bot> Game::m_bots;
+vector<Score*> Game::m_scores;
+
+
 
 void Game::start(int argc, char *argv[]) {
     if (Game::m_state != STATE_UNINITIALISED)
@@ -41,6 +45,13 @@ void Game::start(int argc, char *argv[]) {
 
     Game::m_state = STATE_INIT;
 
+    // TODO : Tempory
+    unsigned int a = 42;
+    for(int i = 0; i < 5; i++){
+
+        Game::m_scores.push_back(new Score(i, std::to_string(i), &a, sf::Color(200, 120, i*20, 220) ) );
+    }
+
     while (Game::m_state != STATE_QUIT)
         Game::loop();
 }
@@ -63,6 +74,12 @@ void Game::loop() {
 
         // Draw map
         Game::m_map.draw();
+
+        // Draw Scores
+        for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
+            Game::m_scores[i]->draw();
+        }
+
 
         Game::m_main_window.display();
     }
