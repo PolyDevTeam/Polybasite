@@ -16,3 +16,15 @@ Bot::~Bot() {
         delete m_miners[i];
     }
 }
+
+string Bot::getName() const {
+    return m_name;
+}
+
+sf::Color Bot::getColor() const {
+    return m_color;
+}
+
+void Bot::setColor(sf::Color color) {
+    m_color = color;
+}
