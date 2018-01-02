@@ -22,6 +22,10 @@ install:
 compiler:
     - g++
 
+branches:
+  except:
+    - conception
+
 script:
     - mkdir out
     - make release
