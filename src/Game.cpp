@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Game.hpp"
+#include "Log.hpp"
 #include "Map.hpp"
 #include "Bot.hpp"
 #include "Score.hpp"
@@ -28,13 +29,15 @@ void Game::start(int argc, char *argv[]) {
     Game::m_main_window.setVerticalSyncEnabled(true);
 
     // TODO : Initialise bot whith socket communication
-    // TODO : Add logging system after this branch
 
     // TODO : Add error message when no bot loaded
     srand(time(NULL)); // Rand initialisation
 
+    // TODO : Add macro
+    LOG << "Starting game\n";
+
     for (int i = 1; i < argc; ++i) {
-        std::cout << "BOT NAME " << argv[i] << std::endl;
+        LOG << "BOT NAME " << argv[i] << '\n';
         // TODO : Select random color
         // TODO : Add some security to counter two bot at the same position
         unsigned pos_x = rand() % m_map.getWidth();
@@ -57,8 +60,12 @@ void Game::start(int argc, char *argv[]) {
 }
 
 void Game::quit() {
-    Game::m_main_window.close();
-    Game::m_state = STATE_QUIT;
+    if(Game::m_state != STATE_QUIT) {
+        LOG << "GAME QUIT\n";
+        LOG.close();
+        Game::m_main_window.close();
+        Game::m_state = STATE_QUIT;
+    }
 }
 
 void Game::loop() {
