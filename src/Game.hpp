@@ -38,6 +38,7 @@ public:
     static void quit();
 private:
     static void loop();
+    static void displayBotNames();
 };
 
 #endif /* __GAME_HPP__ */

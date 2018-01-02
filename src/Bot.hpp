@@ -14,10 +14,12 @@ public:
     Bot(string name, unsigned x, unsigned y);
     virtual ~Bot();
     string getName() const;
+    sf::Color getColor() const;
+    void setColor(sf::Color color);
 private:
     string m_name;
     unsigned m_owner;
-    ::Color m_color;
+    sf::Color m_color;
     vector<Miner*> m_miners;
 };
 
