@@ -35,3 +35,6 @@
 # CLion Files
 .idea/
 cmake-build-debug/
+
+# Log files
+log.txt
