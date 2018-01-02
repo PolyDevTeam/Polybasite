@@ -58,6 +58,14 @@ RichText &RichText::operator<<(const sf::String &str) {
     return *this;
 }
 
+sf::FloatRect RichText::getLocalBounds() const {
+    return m_bounds;
+}
+
+sf::FloatRect RichText::getGlobalBounds() const {
+    return getTransform().transformRect(getLocalBounds());
+}
+
 void RichText::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
 

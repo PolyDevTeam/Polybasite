@@ -19,6 +19,8 @@ public:
     RichText& operator<<(sf::Text::Style style);
     RichText& operator<<(const sf::String &str);
 
+    sf::FloatRect getLocalBounds() const;
+    sf::FloatRect getGlobalBounds() const;
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 private:
