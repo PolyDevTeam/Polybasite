@@ -12824,7 +12824,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+entities: vector<Entity*>",
+											"text": "-entities: vector<Entity*>",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12853,7 +12853,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+height: int",
+											"text": "-height: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12882,7 +12882,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+width: int",
+											"text": "-width: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13232,7 +13232,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+power: int",
+											"text": "-power: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13261,7 +13261,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+x: int",
+											"text": "-x: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13290,7 +13290,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+y: int",
+											"text": "-y: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13522,7 +13522,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Mineur",
+											"text": "Miner",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15016,7 +15016,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+x: int",
+											"text": "-x: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15045,7 +15045,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+y: int",
+											"text": "-y: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15074,7 +15074,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+power: int*",
+											"text": "-power: int*",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15103,7 +15103,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+height: int",
+											"text": "-height: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15132,7 +15132,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+width: int",
+											"text": "-width: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15161,7 +15161,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+name: string",
+											"text": "-name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15511,7 +15511,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+map: Map",
+											"text": "-map: Map",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15540,7 +15540,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+scores: vector<Score*>",
+											"text": "-scores: vector<Score*>",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15569,7 +15569,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+bots: vector<Bot*>",
+											"text": "-bots: vector<Bot*>",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15598,7 +15598,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+main_window: sf::RenderWindow",
+											"text": "-main_window: sf::RenderWindow",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -15627,7 +15627,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+state: GameState",
+											"text": "-state: GameState",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -16881,7 +16881,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+name: string",
+											"text": "-name: string",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -17506,7 +17506,7 @@
 								"$ref": "AAAAAAFgNS3fLJ/tSzg="
 							},
 							"name": "entities",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "vector<Entity*>",
@@ -17524,7 +17524,7 @@
 								"$ref": "AAAAAAFgNS3fLJ/tSzg="
 							},
 							"name": "height",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17542,7 +17542,7 @@
 								"$ref": "AAAAAAFgNS3fLJ/tSzg="
 							},
 							"name": "width",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17639,7 +17639,7 @@
 								"$ref": "AAAAAAFgNTDijqE6mCA="
 							},
 							"name": "power",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17657,7 +17657,7 @@
 								"$ref": "AAAAAAFgNTDijqE6mCA="
 							},
 							"name": "x",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17675,7 +17675,7 @@
 								"$ref": "AAAAAAFgNTDijqE6mCA="
 							},
 							"name": "y",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17714,7 +17714,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFgNS0srJ/gADc="
 					},
-					"name": "Mineur",
+					"name": "Miner",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -17828,7 +17828,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "x",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17846,7 +17846,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "y",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17864,7 +17864,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "power",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int*",
@@ -17882,7 +17882,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "height",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17900,7 +17900,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "width",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "int",
@@ -17918,7 +17918,7 @@
 								"$ref": "AAAAAAFgfpbuQjME88I="
 							},
 							"name": "name",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "string",
@@ -18016,7 +18016,7 @@
 								"$ref": "AAAAAAFgfpdEATOogEw="
 							},
 							"name": "map",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": {
@@ -18036,7 +18036,7 @@
 								"$ref": "AAAAAAFgfpdEATOogEw="
 							},
 							"name": "scores",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "vector<Score*>",
@@ -18054,7 +18054,7 @@
 								"$ref": "AAAAAAFgfpdEATOogEw="
 							},
 							"name": "bots",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "vector<Bot*>",
@@ -18072,7 +18072,7 @@
 								"$ref": "AAAAAAFgfpdEATOogEw="
 							},
 							"name": "main_window",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "sf::RenderWindow",
@@ -18090,7 +18090,7 @@
 								"$ref": "AAAAAAFgfpdEATOogEw="
 							},
 							"name": "state",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "GameState",
@@ -18216,7 +18216,7 @@
 								"$ref": "AAAAAAFgfqPw9jeKNds="
 							},
 							"name": "name",
-							"visibility": "public",
+							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
 							"type": "string",
