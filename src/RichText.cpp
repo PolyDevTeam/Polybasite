@@ -74,7 +74,6 @@ void RichText::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
 }
 
-// TODO : See if this method rest in this class
 std::vector<sf::String> RichText::explode(const sf::String &str, sf::Uint32 delimiter) {
     if (str.isEmpty()) {
         return std::vector<sf::String>();

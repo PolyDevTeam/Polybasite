@@ -30,7 +30,7 @@ private:
     std::vector<Line> m_lines;
     sf::FloatRect m_bounds;
     unsigned int m_characterSize;
-    const sf::Font* m_font; // TODO : Voir si un pointeur est worth it
+    const sf::Font* m_font;
     sf::Color m_color;
     sf::Text::Style m_style;
 };

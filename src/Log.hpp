@@ -27,7 +27,7 @@ public:
 private:
     Log(const std::string filename);
     Log(const Log& log);
-    ~Log();
+    virtual ~Log();
 
     static Log* m_instance;
     static std::ofstream m_logFile;
