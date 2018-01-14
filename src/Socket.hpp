@@ -15,6 +15,7 @@ namespace plb {
         int getPort() const;
 
         std::string receive();
+        std::string receive(int timeout);
 
         void send(std::string ipAddress, int port, std::string msg);
         void send(std::string ipAddress, int port, Serializable* serializable);

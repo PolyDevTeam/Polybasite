@@ -26,6 +26,7 @@ Bot::Bot(std::string directory, unsigned x, unsigned y) {
 
     // The first exchange is name;port
     std::string receive = m_socket->receive();
+
     m_name = Util::extract(receive, ';');
 
     LOG << "[Polybasite] Discover bot : " << m_name << '\n';

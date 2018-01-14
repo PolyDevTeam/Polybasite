@@ -39,9 +39,27 @@ std::string Socket::receive() {
     return std::string(data);
 }
 
-//void receive(int timeout) {
-//
-//}
+std::string Socket::receive(int timeout) {
+    sf::SocketSelector selector;
+    selector.add(m_socket);
+
+    if(selector.wait(sf::seconds(timeout))) {
+        std::size_t received;
+
+        char data[sf::UdpSocket::MaxDatagramSize];
+
+        // socket UDP:
+        sf::IpAddress sender;
+        unsigned short port;
+        if (m_socket.receive(data, sf::UdpSocket::MaxDatagramSize, received, sender, port) != sf::Socket::Done) {
+            // erreur...
+        }
+
+        return data;
+    }
+    else
+        return "TIMEOUT"; // TODO : Create an exception Error
+}
 
 void Socket::send(std::string ipAddress, int port, std::string msg) {
     sf::IpAddress recipient = ipAddress;
