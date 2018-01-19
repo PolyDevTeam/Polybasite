@@ -9,6 +9,9 @@ public:
     virtual ~Miner();
 
     virtual void draw() const;
+
+    std::string serialize();
+    void deserialize(std::string serializable);
 };
 
 #endif /* __MINER_HPP__ */

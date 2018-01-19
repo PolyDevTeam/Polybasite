@@ -31,9 +31,8 @@ public:
     static sf::RenderWindow m_main_window;
     static Map m_map;
     static vector<Score*> m_scores;
-    static std::vector<Bot> m_bots;
+    static std::vector<Bot*> m_bots;
 
-  
     static void start(int argc, char* argv[]);
     static void quit();
 private:

@@ -7,16 +7,37 @@
 #include "Bot.hpp"
 #include "Score.hpp"
 #include "RichText.hpp"
+#include "Socket.hpp"
+
+#include "Error.hpp"
 
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map(30, 30);
-std::vector <Bot> Game::m_bots;
+std::vector <Bot*> Game::m_bots;
 vector<Score*> Game::m_scores;
 
 void Game::start(int argc, char *argv[]) {
     if (Game::m_state != STATE_UNINITIALISED)
         return;
+
+    if(argc == 1)
+        throw Error();
+
+    // TODO : Add error message when no bot loaded
+    srand(time(NULL)); // Rand initialisation
+
+    LOG << "[PolyBasite] START\n";
+
+    for (int i = 1; i < argc; ++i) {
+        unsigned pos_x = rand() % m_map.getWidth();
+        unsigned pos_y = rand() % m_map.getHeight();
+
+        Bot* bot = new Bot(argv[i], pos_x, pos_y);
+        bot->setColor(sf::Color::Red); // TODO : Tempory need bot color selection
+
+        Game::m_bots.push_back(bot);
+    }
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
@@ -27,25 +48,6 @@ void Game::start(int argc, char *argv[]) {
                                settings);
 
     Game::m_main_window.setVerticalSyncEnabled(true);
-
-    // TODO : Initialise bot whith socket communication
-
-    // TODO : Add error message when no bot loaded
-    srand(time(NULL)); // Rand initialisation
-
-    // TODO : Add macro
-    LOG << "Starting game\n";
-
-    for (int i = 1; i < argc; ++i) {
-        LOG << "BOT NAME " << argv[i] << '\n';
-        // TODO : Select random color
-        // TODO : Add some security to counter two bot at the same position
-        unsigned pos_x = rand() % m_map.getWidth();
-        unsigned pos_y = rand() % m_map.getHeight();
-        Bot bot(argv[i], pos_x, pos_y);
-        bot.setColor(sf::Color::Red); // TODO : Tempory need bot color selection
-        Game::m_bots.push_back(bot);
-    }
 
     Game::m_state = STATE_INIT;
 
@@ -61,10 +63,15 @@ void Game::start(int argc, char *argv[]) {
 
 void Game::quit() {
     if(Game::m_state != STATE_QUIT) {
-        LOG << "GAME QUIT\n";
+        LOG << "[PolyBasite] QUIT\n";
         LOG.close();
         Game::m_main_window.close();
         Game::m_state = STATE_QUIT;
+
+        // TODO : Error generated here
+        // TODO : Fix all memory leaks
+//        for(Bot* bot : Game::m_bots)
+//            delete bot;
     }
 }
 
@@ -103,8 +110,8 @@ void Game::displayBotNames() {
     RichText text(font);
 
     for(unsigned i = 0; i < Game::m_bots.size(); ++i) {
-        Bot bot = Game::m_bots[i];
-        text << bot.getColor() << bot.getName();
+        Bot* bot = Game::m_bots[i];
+        text << bot->getColor() << bot->getName();
 
         // TODO : Add some security if bot got a long name
         if(i < Game::m_bots.size() - 1)

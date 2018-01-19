@@ -4,13 +4,16 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include "Serializable.hpp"
+
 using namespace sf;
 
-class Entity : public Sprite {
+class Entity : public Sprite, public Serializable {
 public:
     static const unsigned ENTITY_WIDTH = 20;
     static const unsigned ENTITY_HEIGHT = 20;
 
+    Entity();
     Entity(unsigned x, unsigned y);
     unsigned getX() const;
     unsigned getY() const;
@@ -18,6 +21,9 @@ public:
     virtual ~Entity();
 
     virtual void draw() const;
+
+    virtual std::string serialize();
+    virtual void deserialize(std::string serializable);
 protected:
     unsigned m_x;
     unsigned m_y;

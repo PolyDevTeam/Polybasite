@@ -1,9 +1,16 @@
 #include <iostream>
+#include <sstream>
+
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "Game.hpp"
 #include "Basite.hpp"
 #include "Color.hpp"
+#include "Util.hpp"
+
+Basite::Basite() : Entity(), m_power(0) {
+
+}
 
 Basite::Basite(unsigned x, unsigned y, unsigned power) : Entity(x, y), m_power(power) {
 
@@ -31,4 +38,30 @@ void Basite::draw() const {
 
     Game::m_main_window.draw(rectangle);
     Game::m_main_window.draw(foreground);
+}
+
+
+std::string Basite::serialize() {
+    std::ostringstream os;
+
+    os << "Basite:" << m_x << ";" << m_y;
+
+    return os.str();
+}
+
+void Basite::deserialize(std::string serializable) {
+    string str = serializable;
+    string result = Util::extract(str, ':');
+
+    if(result != "Basite") {
+        std::cout << result << std::endl;
+        std::cout << "Ce n'est pas un objet Basite" << std::endl;
+        exit(-1);
+    }
+
+    result = Util::extract(str, ';');
+    m_x = atoi(result.c_str());
+
+    result = Util::extract(str, ';');
+    m_y = atoi(result.c_str());
 }

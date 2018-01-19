@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -63,4 +64,65 @@ void Map::draw() const {
 
 void Map::setEntity(Entity *entity) {
     m_entities[entity->getX()][entity->getY()] = entity;
+}
+
+std::string Map::serialize() {
+    std::ostringstream os;
+    os << "Map:" << m_width << ";" << m_height << ";";
+
+    for(unsigned i = 0; i < m_width; ++i) {
+        for(unsigned j = 0; j < m_height; ++j) {
+            os << m_entities[i][j]->serialize() << ";";
+        }
+    }
+
+    return os.str();
+}
+
+void Map::deserialize(std::string serializable) {
+    std::string str = serializable;
+    std::string buff;
+
+    buff = str.substr(0, str.find(":", 0));
+    str = str.substr(str.find(":", 0)+1, str.length());
+
+    if(buff != "Map") {
+        std::cout << buff << std::endl;
+        std::cout << "Ce n'est pas un objet map" << std::endl;
+        return;
+    }
+
+    buff = str.substr(0, str.find(";", 0));
+    str = str.substr(str.find(";", 0)+1, str.length());
+    m_width = atoi(buff.c_str());
+
+    buff = str.substr(0, str.find(";", 0));
+    str = str.substr(str.find(";", 0)+1, str.length());
+    m_height = atoi(buff.c_str());
+
+    for (unsigned i = 0; i < m_width; ++i) {
+        VEntity line;
+
+        for (unsigned j = 0; j < m_height; ++j) {
+            buff = str.substr(0, str.find(":", 0));
+
+            if(buff == "Entity") {
+                Entity* entity = new Entity();
+                entity->deserialize(str);
+                line.push_back(entity);
+            }
+            else if(buff == "BlackHole") {
+                BlackHole* blackHole = new BlackHole();
+                blackHole->deserialize(str);
+                line.push_back(blackHole);
+            }
+            else if(buff == "Basite") {
+                Basite* basite = new Basite();
+                basite->deserialize(str);
+                line.push_back(basite);
+            }
+        }
+
+        m_entities.push_back(line);
+    }
 }

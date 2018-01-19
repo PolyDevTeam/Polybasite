@@ -1,7 +1,13 @@
 #include <iostream>
+#include <sstream>
 
 #include "BlackHole.hpp"
 #include "Game.hpp"
+#include "Util.hpp"
+
+BlackHole::BlackHole() : Entity() {
+
+}
 
 BlackHole::BlackHole(unsigned x, unsigned y) : Entity(x, y) {
 
@@ -22,4 +28,30 @@ void BlackHole::draw() const {
     rectangle.setFillColor(::Color::Green);
 
     Game::m_main_window.draw(rectangle);
+}
+
+std::string BlackHole::serialize() {
+    std::ostringstream os;
+
+    os << "BlackHole:" << m_x << ";" << m_y;
+
+    return os.str();
+}
+
+void BlackHole::deserialize(std::string serializable) {
+    string str = serializable;
+    string result = Util::extract(str, ':');
+
+    if(result != "BlackHole") {
+        // TODO : Create a good error
+        std::cout << result << std::endl;
+        std::cout << "Ce n'est pas un objet BlackHole" << std::endl;
+        return;
+    }
+
+    result = Util::extract(str, ';');
+    m_x = atoi(result.c_str());
+
+    result = Util::extract(str, ';');
+    m_y = atoi(result.c_str());
 }

@@ -1,6 +1,7 @@
 #ifndef __LOG_HPP__
 #define __LOG_HPP__
 
+#include <iostream>
 #include <fstream>
 #include "Loggable.hpp"
 
@@ -27,7 +28,7 @@ public:
 private:
     Log(const std::string filename);
     Log(const Log& log);
-    ~Log();
+    virtual ~Log();
 
     static Log* m_instance;
     static std::ofstream m_logFile;
