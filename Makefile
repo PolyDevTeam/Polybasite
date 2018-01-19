@@ -5,7 +5,12 @@ CFLAGS= -Wall -std=c++11
 EXECS= Polybasite.exe
 BOTS = RandomBot RandomBot
 
-OBJ= out/Util.o out/Serializable.o out/Socket.o out/Log.o out/Line.o out/RichText.o out/Miner.o out/Bot.o out/BlackHole.o out/Color.o out/Basite.o out/Entity.o out/Map.o out/Game.o out/main.o out/Score.o
+OBJ= out/Error.o out/FatalError.o \
+	 out/Util.o out/Serializable.o out/Socket.o \
+	 out/Log.o out/Line.o out/RichText.o out/Miner.o \
+	 out/Bot.o out/BlackHole.o out/Color.o \
+	 out/Basite.o out/Entity.o out/Map.o \
+	 out/Game.o out/main.o out/Score.o
 
 all: $(OBJ)
 	@echo "*** Building the game ***"
@@ -83,6 +88,14 @@ out/Serializable.o: src/Serializable.cpp src/Serializable.hpp
 
 out/Util.o: src/Util.cpp src/Util.hpp
 	@echo "*** Building Util.cpp ***"
+	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
+
+out/Error.o: src/Error.cpp src/Error.hpp
+	@echo "*** Building Error.cpp ***"
+	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
+
+out/FatalError.o: src/FatalError.cpp src/FatalError.hpp
+	@echo "*** Building FatalError.cpp ***"
 	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
 
 clean:

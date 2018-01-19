@@ -9,6 +9,8 @@
 #include "RichText.hpp"
 #include "Socket.hpp"
 
+#include "Error.hpp"
+
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map(30, 30);
@@ -19,13 +21,14 @@ void Game::start(int argc, char *argv[]) {
     if (Game::m_state != STATE_UNINITIALISED)
         return;
 
-    // TODO : Add error message when no bot loaded
+    if(argc == 1)
+        throw Error();
 
+    // TODO : Add error message when no bot loaded
     srand(time(NULL)); // Rand initialisation
 
     LOG << "[PolyBasite] START\n";
 
-    // TODO : Fix Segmentation fault error
     for (int i = 1; i < argc; ++i) {
         unsigned pos_x = rand() % m_map.getWidth();
         unsigned pos_y = rand() % m_map.getHeight();

@@ -1,6 +1,7 @@
 #ifndef __LOG_HPP__
 #define __LOG_HPP__
 
+#include <iostream>
 #include <fstream>
 #include "Loggable.hpp"
 

@@ -1,124 +1,82 @@
-#ifndef AI_NETWORKING_H
-#define AI_NETWORKING_H
+#ifndef __NETWORKING_HPP__
+#define __NETWORKING_HPP__
 
 #include <iostream>
-#include <time.h>
-#include <set>
-#include <cfloat>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <bitset>
 
-#ifdef _WIN32
-#include <sys/types.h>
-#include <Winsock2.h>
-#include <Ws2tcpip.h>
-#define WINSOCKVERSION MAKEWORD(2,2)
-#else
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <time.h>
-#endif
+#include <SFML/Network.hpp>
 
-#include "hlt.hpp"
-
-namespace detail{
-    static std::vector< std::vector<unsigned char> > productions;
-    static int width, height;
-
-    static std::string serializeMoveSet(const std::set<hlt::Move> &moves) {
-        std::ostringstream oss;
-        for(auto a = moves.begin(); a != moves.end(); ++a) oss << a->loc.x << " " << a->loc.y << " " << (int)a->dir << " ";
-        return oss.str();
-    }
-
-    static void deserializeMapSize(const std::string & inputString) {
-        std::stringstream iss(inputString);
-        iss >> width >> height;
-    }
-
-    static void deserializeProductions(const std::string & inputString) {
-        std::stringstream iss(inputString);
-        productions.resize(height);
-        short temp;
-        for(auto a = productions.begin(); a != productions.end(); a++) {
-            a->resize(width);
-            for(auto b = a->begin(); b != a->end(); b++) {
-                iss >> temp;
-                *b = temp;
+// TODO : Add code with error exception
+// TODO : Tempory code it's just a copy from Polybasite code Update it when the original is modified
+namespace plb {
+    // TODO : Update this class with the current class in main project
+    class Socket {
+    public:
+        Socket(int port) : m_port(port), m_socket() {
+            // Default constructor is prohibited by SFML
+            if(port == 0) {
+                m_port = rand() % (65535 - 49152) + 49152;
             }
-        }
-    }
 
-    static hlt::GameMap deserializeMap(const std::string & inputString) {
-        std::stringstream iss(inputString);
-
-        hlt::GameMap map(width, height);
-
-        //Set productions
-        for(int a = 0; a < map.height; a++) {
-            for(int b = 0; b < map.width; b++) {
-                map.contents[a][b].production = productions[a][b];
+            if(m_socket.bind(m_port) != sf::Socket::Done) {
+                // TODO : Have a good error method for log and try catch it
+                std::cout << "Error" << std::endl;
+                exit(-1);
             }
         }
 
-        //Run-length encode of owners
-        unsigned short y = 0, x = 0;
-        unsigned short counter = 0, owner = 0;
-        while(y != map.height) {
-            for(iss >> counter >> owner; counter; counter--) {
-                map.contents[y][x].owner = owner;
-                x++;
-                if(x == map.width) {
-                    x = 0;
-                    y++;
-                }
-            }
+        int getPort() const {
+            return m_port;
         }
 
-        for (int a = 0; a < map.contents.size(); a++) {
-            for (int b = 0; b < map.contents[a].size(); b++) {
-                short strengthShort;
-                iss >> strengthShort;
-                map.contents[a][b].strength = strengthShort;
+        std::string receive() {
+            std::size_t received;
+
+            char data[sf::UdpSocket::MaxDatagramSize];
+
+            // socket UDP:
+            sf::IpAddress sender;
+            unsigned short port;
+            if (m_socket.receive(data, sf::UdpSocket::MaxDatagramSize, received, sender, port) != sf::Socket::Done) {
+                // erreur...
             }
+
+            std::cout << "Received " << received << " bytes from " << sender << " on port " << port << std::endl;
+            std::cout << "Data = " << data << std::endl;
+
+            return std::string(data);
         }
 
-        return map;
-    }
-    static void sendString(const std::string & sendString) {
-        if(sendString.length() < 1) std::cout << ' ' << std::endl; //Automatically flushes.
-        else std::cout << sendString << std::endl; //Automatically flushes.
-    }
+        void send(std::string ipAddress, int port, std::string msg) {
+            sf::IpAddress recipient = ipAddress;
 
-    static std::string getString() {
-        std::string newString;
-        std::getline(std::cin, newString);
-        return newString;
-    }
+            if (m_socket.send(msg.c_str(), msg.size(), recipient, port) != sf::Socket::Done) {
+                // Erreur
+                std::cout << "Erreur dans l'envoie du message" << std::endl;
+            }
+
+            std::cout << "MESSAGE SENDED" << std::endl;
+        }
+    private:
+        int m_port;
+        sf::UdpSocket m_socket;
+    };
 }
 
-static void getInit(unsigned char& playerTag, hlt::GameMap& m) {
-    playerTag = (unsigned char)std::stoi(detail::getString());
-    detail::deserializeMapSize(detail::getString());
-    detail::deserializeProductions(detail::getString());
-    m = detail::deserializeMap(detail::getString());
+static plb::Socket *socket = new plb::Socket(0);
 
+void initBot(std::string botName, char* argv[]) {
+    // TODO : Prevent bot got ; in his name
+    // TODO : Prevent if port number is already taken by an another bot
+
+    // Send bot name to the main thread
+    socket->send("127.0.0.1", atoi(argv[1]), botName + ";" + std::to_string(socket->getPort()));
+
+    // Receive the game map
+    std::string mapString = socket->receive();
+
+    // TODO : Unserialize Map
+
+    // TODO : Create an object MAP
 }
 
-static void sendInit(std::string name) {
-    detail::sendString(name);
-}
-
-static void getFrame(hlt::GameMap& m) {
-    m = detail::deserializeMap(detail::getString());
-}
-static void sendFrame(const std::set<hlt::Move> &moves) {
-    detail::sendString(detail::serializeMoveSet(moves));
-}
-
-#endif
+#endif /* __NETWORKING_HPP__ */

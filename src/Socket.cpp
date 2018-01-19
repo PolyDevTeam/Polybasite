@@ -64,8 +64,7 @@ std::string Socket::receive(int timeout) {
 void Socket::send(std::string ipAddress, int port, std::string msg) {
     sf::IpAddress recipient = ipAddress;
 
-    if (m_socket.send(msg.c_str(), msg.size(), recipient, port) != sf::Socket::Done)
-    {
+    if (m_socket.send(msg.c_str(), msg.size(), recipient, port) != sf::Socket::Done) {
 //         Erreur
         std::cout << "Erreur dans l'envoie du message" << std::endl;
     }
