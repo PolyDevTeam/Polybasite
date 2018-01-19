@@ -5,6 +5,8 @@
 
 class Miner : public Entity {
 public:
+    static const unsigned MAX_POWER = 8;
+
     Miner(unsigned x, unsigned y);
     virtual ~Miner();
 
@@ -12,6 +14,13 @@ public:
 
     std::string serialize();
     void deserialize(std::string serializable);
+
+    void setPower(unsigned power);
+    unsigned getPower() const;
+
+    bool operator==(const Miner& m);
+private:
+    unsigned m_power;
 };
 
 #endif /* __MINER_HPP__ */

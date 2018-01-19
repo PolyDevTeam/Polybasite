@@ -2,6 +2,7 @@
 #define __BASITE_HPP__
 
 #include "Entity.hpp"
+#include "Bot.hpp"
 
 class Basite : public Entity {
 public:
@@ -14,6 +15,7 @@ public:
     virtual void draw() const;
     virtual std::string serialize();
     virtual void deserialize(std::string serializable);
+    void interact(Bot* bot, Miner *miner);
 private:
     unsigned m_power;
 };

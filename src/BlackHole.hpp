@@ -15,6 +15,7 @@ public:
 
     virtual std::string serialize();
     virtual void deserialize(std::string serializable);
+    virtual void interact(Bot *bot, Miner *miner);
 };
 
 #endif /* __BLACKHOLE_HPP__ */

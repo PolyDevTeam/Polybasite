@@ -59,3 +59,6 @@ void Entity::deserialize(std::string serializable) {
     result = Util::extract(str, ';');
     m_y = atoi(result.c_str());
 }
+
+void Entity::interact(Bot* bot, Miner* miner) {
+}

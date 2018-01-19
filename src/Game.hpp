@@ -36,6 +36,7 @@ public:
     static void start(int argc, char* argv[]);
     static void quit();
 private:
+    static void turn();
     static void loop();
     static void displayBotNames();
 };

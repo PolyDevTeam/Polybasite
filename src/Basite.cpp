@@ -65,3 +65,17 @@ void Basite::deserialize(std::string serializable) {
     result = Util::extract(str, ';');
     m_y = atoi(result.c_str());
 }
+
+void Basite::interact(Bot* bot, Miner *miner) {
+
+//    if(miner->getPower() > 1) {
+//        newMiner->setPower(miner->getPower() - 1);
+//    }
+//    else {
+//        newMiner->setPower(0);
+//    }
+//
+    bot->addMiner(m_x, m_y, miner->getPower() - 1);
+
+    miner->setPower(0);
+}

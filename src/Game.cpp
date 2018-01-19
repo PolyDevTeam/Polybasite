@@ -97,6 +97,8 @@ void Game::loop() {
             Game::m_scores[i]->draw();
         }
 
+        Game::turn();
+
         Game::m_main_window.display();
     }
 
@@ -124,4 +126,13 @@ void Game::displayBotNames() {
 
     // Draw bots name
     Game::m_main_window.draw(text);
+}
+
+void Game::turn() {
+    for(Bot* bot : Game::m_bots)
+        bot->turn();
+
+    std::cout << "TURN" << std::endl;
+
+    sf::sleep(sf::milliseconds(200));
 }

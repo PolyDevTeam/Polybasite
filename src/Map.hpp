@@ -20,6 +20,8 @@ public:
     void draw() const;
     void setEntity(Entity* entity);
 
+    std::vector<Entity*>& operator[] (unsigned i);
+
     unsigned getHeight() const;
     unsigned getWidth() const;
 

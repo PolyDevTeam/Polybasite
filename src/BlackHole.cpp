@@ -55,3 +55,9 @@ void BlackHole::deserialize(std::string serializable) {
     result = Util::extract(str, ';');
     m_y = atoi(result.c_str());
 }
+
+void BlackHole::interact(Bot *bot, Miner *miner) {
+    // TODO : Need a test
+    bot->deleteMiner(miner);
+    Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
+}

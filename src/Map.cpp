@@ -45,6 +45,10 @@ Map::~Map() {
     }
 }
 
+std::vector<Entity *> & Map::operator[](unsigned i) {
+    return m_entities[i];
+}
+
 unsigned Map::getWidth() const {
     return m_width;
 }

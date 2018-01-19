@@ -18,6 +18,9 @@ public:
     string getName() const;
     sf::Color getColor() const;
     void setColor(sf::Color color);
+    void turn();
+    void addMiner(unsigned x, unsigned y, unsigned power);
+    void deleteMiner(Miner* miner);
 private:
     Bot(const Bot& bot); // std::thread isn't copyable
 

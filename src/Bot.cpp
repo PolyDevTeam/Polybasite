@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 
@@ -67,4 +68,43 @@ sf::Color Bot::getColor() const {
 
 void Bot::setColor(sf::Color color) {
     m_color = color;
+}
+
+void Bot::turn() {
+    // Add one power by miner
+    for (Miner *miner : m_miners) {
+        if (miner->getPower() < Miner::MAX_POWER - 1) {
+            miner->setPower(miner->getPower() + 1);
+        }
+    }
+
+    // Send map to the bot
+    // TODO : Send String for direction
+//    m_socket->send("127.0.0.1", m_port, &Game::m_map);
+
+    // TODO : Send map and ask movement
+
+    // Foreach movement {
+    // TODO : Execute movement
+    for (Miner* miner : m_miners) {
+        unsigned i = (miner->getX() + 1)%Game::m_map.getWidth();
+        unsigned j = (miner->getY() + 1)%Game::m_map.getHeight();
+        std::cout << "[" << i << ", " << j << "]" << std::endl;
+        Entity* entity = Game::m_map[i][j];
+        entity->interact(this, miner);
+    }
+}
+
+void Bot::addMiner(unsigned x, unsigned y, unsigned power) {
+    Miner* miner = new Miner(x, y);
+    miner->setPower(power);
+    m_miners.push_back(miner);
+}
+
+void Bot::deleteMiner(Miner *m) {
+    for(std::vector<Miner*>::iterator it = m_miners.begin(); it < m_miners.end(); ++it) {
+        if(*it == m) {
+            m_miners.erase(it);
+        }
+    }
 }
