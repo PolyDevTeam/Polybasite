@@ -1,0 +1,23 @@
+TEST A FAIRE
+
+Mineur
+- Mouvement Mineur sur
+	- Basite (attaque)
+	- autre Mineur Allié (don de puissance)
+	- autre Mineur Ennemi (attaque)
+	- BlackHole (attaque défaite obligatoire)
+
+- gain de puissance par tour
+
+IA
+- connection IA + communication IA.
+- Demande de Commande IA + Création de la Commande par l'IA + Envoi de la Commande au jeu.
+
+
+
+Affichage
+- Affichage de la Map + Affichage des différents type d'entité (Basite, Mineur, BlackHole).
+- Affichage des scores + Calcul Score.
+
+Autres
+- Passage du nombre de tours + affichage
