@@ -2,24 +2,27 @@
 #define __NETWORKING_HPP__
 
 #include <iostream>
+#include <set>
 
 #include <SFML/Network.hpp>
 
+#include "plb.hpp"
+
 // TODO : Add code with error exception
-// TODO : Tempory code it's just a copy from Polybasite code Update it when the original is modified
 namespace plb {
-    // TODO : Update this class with the current class in main project
     class Socket {
     public:
         Socket(int port) : m_port(port), m_socket() {
+            srand(time(NULL)); // Rand initialisation
+
             // Default constructor is prohibited by SFML
             if(port == 0) {
-                m_port = rand() % (65535 - 49152) + 49152;
+                m_port = rand() % (65535 - 49152) + 49152; // Free port range
             }
 
             if(m_socket.bind(m_port) != sf::Socket::Done) {
                 // TODO : Have a good error method for log and try catch it
-                std::cout << "Error" << std::endl;
+                std::cerr << "Error to create an socket" << std::endl;
                 exit(-1);
             }
         }
@@ -37,11 +40,8 @@ namespace plb {
             sf::IpAddress sender;
             unsigned short port;
             if (m_socket.receive(data, sf::UdpSocket::MaxDatagramSize, received, sender, port) != sf::Socket::Done) {
-                // erreur...
+                // TODO : Create error
             }
-
-            std::cout << "Received " << received << " bytes from " << sender << " on port " << port << std::endl;
-            std::cout << "Data = " << data << std::endl;
 
             return std::string(data);
         }
@@ -50,11 +50,9 @@ namespace plb {
             sf::IpAddress recipient = ipAddress;
 
             if (m_socket.send(msg.c_str(), msg.size(), recipient, port) != sf::Socket::Done) {
-                // Erreur
-                std::cout << "Erreur dans l'envoie du message" << std::endl;
+                // TODO : Create error
+                std::cerr << "Sending error" << std::endl;
             }
-
-            std::cout << "MESSAGE SENDED" << std::endl;
         }
     private:
         int m_port;
@@ -63,20 +61,38 @@ namespace plb {
 }
 
 static plb::Socket *socket = new plb::Socket(0);
+static int port_server;
 
-void initBot(std::string botName, char* argv[]) {
+static void initBot(std::string botName, char* argv[], plb::Map &map) {
     // TODO : Prevent bot got ; in his name
     // TODO : Prevent if port number is already taken by an another bot
 
     // Send bot name to the main thread
-    socket->send("127.0.0.1", atoi(argv[1]), botName + ";" + std::to_string(socket->getPort()));
+    port_server = atoi(argv[1]);
+    plb::ownerId = atoi(argv[2]);
+    socket->send("127.0.0.1", port_server, botName + ";" + std::to_string(socket->getPort()));
 
     // Receive the game map
     std::string mapString = socket->receive();
 
-    // TODO : Unserialize Map
+    // Deserialize Map
+    map.deserialize(mapString);
+}
 
-    // TODO : Create an object MAP
+static void getFrame(plb::Map &map) {
+    std::string mapString  = socket->receive();
+    map.deserialize(mapString);
+}
+
+static void sendFrame(std::set<plb::Move> moves) {
+    std::string moveString = "";
+
+    for(plb::Move move : moves) {
+        moveString += move.serialize();
+    }
+
+    moveString += '\0';
+    socket->send("127.0.0.1", port_server, moveString);
 }
 
 #endif /* __NETWORKING_HPP__ */

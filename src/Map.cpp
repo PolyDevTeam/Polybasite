@@ -83,12 +83,11 @@ std::string Map::serialize() {
     return os.str();
 }
 
-void Map::deserialize(std::string serializable) {
-    std::string str = serializable;
+void Map::deserialize(std::string &serializable) {
     std::string buff;
 
-    buff = str.substr(0, str.find(":", 0));
-    str = str.substr(str.find(":", 0)+1, str.length());
+    buff = serializable.substr(0, serializable.find(":", 0));
+    serializable = serializable.substr(serializable.find(":", 0)+1, serializable.length());
 
     if(buff != "Map") {
         std::cout << buff << std::endl;
@@ -96,34 +95,39 @@ void Map::deserialize(std::string serializable) {
         return;
     }
 
-    buff = str.substr(0, str.find(";", 0));
-    str = str.substr(str.find(";", 0)+1, str.length());
+    buff = serializable.substr(0, serializable.find(";", 0));
+    serializable = serializable.substr(serializable.find(";", 0)+1, serializable.length());
     m_width = atoi(buff.c_str());
 
-    buff = str.substr(0, str.find(";", 0));
-    str = str.substr(str.find(";", 0)+1, str.length());
+    buff = serializable.substr(0, serializable.find(";", 0));
+    serializable = serializable.substr(serializable.find(";", 0)+1, serializable.length());
     m_height = atoi(buff.c_str());
 
     for (unsigned i = 0; i < m_width; ++i) {
         VEntity line;
 
         for (unsigned j = 0; j < m_height; ++j) {
-            buff = str.substr(0, str.find(":", 0));
+            buff = serializable.substr(0, serializable.find(":", 0));
 
             if(buff == "Entity") {
                 Entity* entity = new Entity();
-                entity->deserialize(str);
+                entity->deserialize(serializable);
                 line.push_back(entity);
             }
             else if(buff == "BlackHole") {
                 BlackHole* blackHole = new BlackHole();
-                blackHole->deserialize(str);
+                blackHole->deserialize(serializable);
                 line.push_back(blackHole);
             }
             else if(buff == "Basite") {
                 Basite* basite = new Basite();
-                basite->deserialize(str);
+                basite->deserialize(serializable);
                 line.push_back(basite);
+            }
+            else if(buff == "Miner") {
+                Miner* miner = new Miner();
+                miner->deserialize(serializable);
+                line.push_back(miner);
             }
         }
 

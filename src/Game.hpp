@@ -32,6 +32,8 @@ public:
     static Map m_map;
     static vector<Score*> m_scores;
     static std::vector<Bot*> m_bots;
+    static unsigned m_nb_turn;
+    static unsigned m_turn_speed;
 
     static void start(int argc, char* argv[]);
     static void quit();

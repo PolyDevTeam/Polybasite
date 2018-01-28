@@ -14,8 +14,8 @@ public:
 
     virtual void draw() const;
     virtual std::string serialize();
-    virtual void deserialize(std::string serializable);
-    void interact(Bot* bot, Miner *miner);
+    virtual void deserialize(std::string &serializable);
+    void interact(Miner *miner);
 private:
     unsigned m_power;
 };

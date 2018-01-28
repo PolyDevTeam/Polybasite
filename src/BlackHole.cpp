@@ -18,8 +18,6 @@ BlackHole::~BlackHole() {
 }
 
 void BlackHole::draw() const {
-//    std::cout << "DRAW BLACKHOLE" << std::endl;
-
     unsigned pos_x = ENTITY_WIDTH * m_x + Map::OFFSET_X;
     unsigned pos_y = ENTITY_HEIGHT * m_y + Map::OFFSET_Y;
 
@@ -38,9 +36,8 @@ std::string BlackHole::serialize() {
     return os.str();
 }
 
-void BlackHole::deserialize(std::string serializable) {
-    string str = serializable;
-    string result = Util::extract(str, ':');
+void BlackHole::deserialize(std::string &serializable) {
+    string result = Util::extract(serializable, ':');
 
     if(result != "BlackHole") {
         // TODO : Create a good error
@@ -49,15 +46,15 @@ void BlackHole::deserialize(std::string serializable) {
         return;
     }
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_x = atoi(result.c_str());
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_y = atoi(result.c_str());
 }
 
-void BlackHole::interact(Bot *bot, Miner *miner) {
-    // TODO : Need a test
+void BlackHole::interact(Miner *miner) {
+    Bot* bot = Game::m_bots[miner->getOwner()];
     bot->deleteMiner(miner);
     Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
 }

@@ -12,6 +12,6 @@ std::string Serializable::serialize() {
     return "";
 }
 
-void Serializable::deserialize(std::string serializable) {
+void Serializable::deserialize(std::string &serializable) {
 
 }

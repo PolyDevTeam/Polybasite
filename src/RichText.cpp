@@ -111,6 +111,11 @@ sf::Text RichText::createText(const sf::String &str) const {
     text.setStyle(m_style);
     text.setCharacterSize(m_characterSize);
 
+    if(m_color == sf::Color::Black) {
+        text.setOutlineColor(sf::Color::White);
+        text.setOutlineThickness(2.0f);
+    }
+
     if(m_font)
         text.setFont(*m_font);
 

@@ -8,7 +8,7 @@ public:
     Serializable();
     virtual ~Serializable();
     virtual std::string serialize();
-    virtual void deserialize(std::string serializable);
+    virtual void deserialize(std::string &serializable);
 };
 
 #endif /* __SERIALIZABLE_HPP__ */

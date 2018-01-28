@@ -13,7 +13,7 @@ using namespace std;
 
 class Bot {
 public:
-    Bot(string name, unsigned x, unsigned y);
+    Bot(string name, unsigned x, unsigned y, unsigned id);
     virtual ~Bot();
     string getName() const;
     sf::Color getColor() const;
@@ -21,6 +21,8 @@ public:
     void turn();
     void addMiner(unsigned x, unsigned y, unsigned power);
     void deleteMiner(Miner* miner);
+    unsigned getOwner() const;
+    unsigned getMinerNumber() const;
 private:
     Bot(const Bot& bot); // std::thread isn't copyable
 

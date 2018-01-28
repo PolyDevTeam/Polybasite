@@ -26,7 +26,7 @@ public:
     unsigned getWidth() const;
 
     virtual std::string serialize();
-    void deserialize(std::string serializable);
+    void deserialize(std::string &serializable);
 private:
     std::vector<std::vector<Entity*>> m_entities;
     unsigned m_width;
