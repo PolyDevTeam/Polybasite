@@ -14,7 +14,8 @@ public:
     virtual void draw() const;
 
     virtual std::string serialize();
-    virtual void deserialize(std::string serializable);
+    virtual void deserialize(std::string &serializable);
+    virtual void interact(Miner *miner);
 };
 
 #endif /* __BLACKHOLE_HPP__ */

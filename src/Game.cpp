@@ -17,6 +17,9 @@ Map Game::m_map(30, 30);
 std::vector <Bot*> Game::m_bots;
 vector<Score*> Game::m_scores;
 
+unsigned Game::m_nb_turn = 0;
+unsigned Game::m_turn_speed = 200;
+
 void Game::start(int argc, char *argv[]) {
     if (Game::m_state != STATE_UNINITIALISED)
         return;
@@ -25,6 +28,7 @@ void Game::start(int argc, char *argv[]) {
         throw Error();
 
     // TODO : Add error message when no bot loaded
+    // TODO : If only one bot remaining => He winning the match
     srand(time(NULL)); // Rand initialisation
 
     LOG << "[PolyBasite] START\n";
@@ -33,8 +37,8 @@ void Game::start(int argc, char *argv[]) {
         unsigned pos_x = rand() % m_map.getWidth();
         unsigned pos_y = rand() % m_map.getHeight();
 
-        Bot* bot = new Bot(argv[i], pos_x, pos_y);
-        bot->setColor(sf::Color::Red); // TODO : Tempory need bot color selection
+        Bot* bot = new Bot(argv[i], pos_x, pos_y, i - 1);
+        bot->setColor(plb::Color::selectRandomSingle());
 
         Game::m_bots.push_back(bot);
     }
@@ -47,7 +51,10 @@ void Game::start(int argc, char *argv[]) {
                                sf::Style::Default,
                                settings);
 
+    // Centering windows
+    sf::VideoMode systemResolution = sf::VideoMode::getDesktopMode();
     Game::m_main_window.setVerticalSyncEnabled(true);
+    Game::m_main_window.setPosition(sf::Vector2i((systemResolution.width / 2) - SCREEN_WIDTH/2, (systemResolution.height / 2) - SCREEN_HEIGHT / 2));
 
     Game::m_state = STATE_INIT;
 
@@ -81,10 +88,33 @@ void Game::loop() {
         while (Game::m_main_window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 Game::quit();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                m_turn_speed += 50;
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                if(m_turn_speed >= 50) {
+                    m_turn_speed -= 50;
+                }
+            }
         }
 
         // Clear screen
         Game::m_main_window.clear();
+
+        // TODO : Tempory display turn
+        sf::Font font;
+        if (!font.loadFromFile("arial.ttf")) {
+            std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
+        }
+
+        sf::Text turn;
+        turn.setFont(font);
+        turn.setCharacterSize(18);
+        turn.setFillColor(sf::Color::White);
+        turn.move(605, 50);
+        turn.setString("Turn = " + std::to_string(Game::m_nb_turn));
+        Game::m_main_window.draw(turn);
 
         // Draw bot names
         Game::displayBotNames();
@@ -96,6 +126,8 @@ void Game::loop() {
         for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
             Game::m_scores[i]->draw();
         }
+
+        Game::turn();
 
         Game::m_main_window.display();
     }
@@ -124,4 +156,15 @@ void Game::displayBotNames() {
 
     // Draw bots name
     Game::m_main_window.draw(text);
+}
+
+void Game::turn() {
+    for(Bot* bot : Game::m_bots)
+        bot->turn();
+
+    LOG << "[Polybasite] NEW TURN\n";
+
+    sf::sleep(sf::milliseconds(m_turn_speed));
+
+    Game::m_nb_turn++;
 }

@@ -20,11 +20,13 @@ public:
     void draw() const;
     void setEntity(Entity* entity);
 
+    std::vector<Entity*>& operator[] (unsigned i);
+
     unsigned getHeight() const;
     unsigned getWidth() const;
 
     virtual std::string serialize();
-    void deserialize(std::string serializable);
+    void deserialize(std::string &serializable);
 private:
     std::vector<std::vector<Entity*>> m_entities;
     unsigned m_width;

@@ -22,7 +22,7 @@ Entity::~Entity() {
 void Entity::draw() const {
     sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
 
-    rectangle.setFillColor(::Color::Grey);
+    rectangle.setFillColor(plb::Color::Grey);
 
     Game::m_main_window.draw(rectangle);
 }
@@ -43,9 +43,8 @@ std::string Entity::serialize() {
     return os.str();
 }
 
-void Entity::deserialize(std::string serializable) {
-    string str = serializable;
-    string result = Util::extract(str, ':');
+void Entity::deserialize(std::string &serializable) {
+    string result = Util::extract(serializable, ':');
 
     if(result != "Entity") {
         std::cout << result << std::endl;
@@ -53,9 +52,13 @@ void Entity::deserialize(std::string serializable) {
         return;
     }
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_x = atoi(result.c_str());
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_y = atoi(result.c_str());
+}
+
+void Entity::interact(Miner* miner) {
+
 }

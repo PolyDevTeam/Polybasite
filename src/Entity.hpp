@@ -8,6 +8,9 @@
 
 using namespace sf;
 
+class Bot;
+class Miner;
+
 class Entity : public Sprite, public Serializable {
 public:
     static const unsigned ENTITY_WIDTH = 20;
@@ -23,7 +26,8 @@ public:
     virtual void draw() const;
 
     virtual std::string serialize();
-    virtual void deserialize(std::string serializable);
+    virtual void deserialize(std::string &serializable);
+    virtual void interact(Miner* miner);
 protected:
     unsigned m_x;
     unsigned m_y;

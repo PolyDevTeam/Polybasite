@@ -26,7 +26,7 @@ void Basite::draw() const {
 
     sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
     rectangle.move(pos_x, pos_y);
-    rectangle.setFillColor(::Color::Grey);
+    rectangle.setFillColor(plb::Color::Grey);
 
     unsigned power = MAX_POWER + (MAX_POWER - m_power);
 
@@ -34,7 +34,7 @@ void Basite::draw() const {
     foreground.setOrigin(sf::Vector2f((ENTITY_WIDTH - power) / 2, (ENTITY_HEIGHT - power) / 2));
     foreground.move(pos_x + MAX_POWER, pos_y + MAX_POWER);
 
-    foreground.setFillColor(::Color::White);
+    foreground.setFillColor(plb::Color::White);
 
     Game::m_main_window.draw(rectangle);
     Game::m_main_window.draw(foreground);
@@ -49,9 +49,8 @@ std::string Basite::serialize() {
     return os.str();
 }
 
-void Basite::deserialize(std::string serializable) {
-    string str = serializable;
-    string result = Util::extract(str, ':');
+void Basite::deserialize(std::string &serializable) {
+    string result = Util::extract(serializable, ':');
 
     if(result != "Basite") {
         std::cout << result << std::endl;
@@ -59,9 +58,26 @@ void Basite::deserialize(std::string serializable) {
         exit(-1);
     }
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_x = atoi(result.c_str());
 
-    result = Util::extract(str, ';');
+    result = Util::extract(serializable, ';');
     m_y = atoi(result.c_str());
+}
+
+void Basite::interact(Miner *miner) {
+    std::cout << "INTERACT BASITE" << std::endl;
+    Bot* bot = Game::m_bots[miner->getOwner()];
+
+    if(miner->getPower() >= m_power) {
+        bot->addMiner(m_x, m_y, miner->getPower() - m_power);
+        miner->setPower(miner->getPower() - m_power);
+    }
+    else {
+        // Protection for noobs
+        if(bot->getMinerNumber() > 10) {
+            bot->deleteMiner(miner);
+            Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
+        }
+    }
 }
