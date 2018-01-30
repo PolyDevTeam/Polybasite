@@ -15,9 +15,9 @@
 
 enum GameState {
     STATE_UNINITIALISED,
-    STATE_INIT,
     STATE_PLAY,
     STATE_PAUSE,
+    STATE_FINISH,
     STATE_QUIT,
 };
 
@@ -26,6 +26,8 @@ public:
     /* Game constant */
     static const unsigned SCREEN_WIDTH = 1024;
     static const unsigned SCREEN_HEIGHT = 650;
+    static const unsigned MAX_TURN = 1500;
+    static const unsigned SPEED_STEP = 50;
 
     static GameState m_state;
     static sf::RenderWindow m_main_window;
@@ -41,6 +43,8 @@ private:
     static void turn();
     static void loop();
     static void displayBotNames();
+    static bool hasWinner();
+    static void displayWinner();
 };
 
 #endif /* __GAME_HPP__ */

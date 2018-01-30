@@ -23,6 +23,7 @@ public:
     void deleteMiner(Miner* miner);
     unsigned getOwner() const;
     unsigned getMinerNumber() const;
+    unsigned getPower() const;
 private:
     Bot(const Bot& bot); // std::thread isn't copyable
 

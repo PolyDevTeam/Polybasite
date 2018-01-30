@@ -126,3 +126,13 @@ unsigned Bot::getOwner() const {
 unsigned Bot::getMinerNumber() const {
     return m_miners.size();
 }
+
+unsigned Bot::getPower() const {
+    unsigned power = 0;
+
+    for(Miner* miner: m_miners) {
+        power += miner->getPower();
+    }
+
+    return power;
+}

@@ -34,7 +34,6 @@ void Game::start(int argc, char *argv[]) {
     LOG << "[PolyBasite] START\n";
 
     for (int i = 1; i < argc; ++i) {
-//       int i = 1;
         unsigned pos_x = rand() % m_map.getWidth();
         unsigned pos_y = rand() % m_map.getHeight();
 
@@ -62,7 +61,7 @@ void Game::start(int argc, char *argv[]) {
     Game::m_main_window.setVerticalSyncEnabled(true);
     Game::m_main_window.setPosition(sf::Vector2i((systemResolution.width / 2) - SCREEN_WIDTH/2, (systemResolution.height / 2) - SCREEN_HEIGHT / 2));
 
-    Game::m_state = STATE_INIT;
+    Game::m_state = STATE_PLAY;
 
     // TODO : Tempory
     unsigned int a = 42;
@@ -96,11 +95,11 @@ void Game::loop() {
                 Game::quit();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                m_turn_speed += 50;
+                m_turn_speed += SPEED_STEP;
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                if(m_turn_speed >= 50) {
-                    m_turn_speed -= 50;
+                if(m_turn_speed >= SPEED_STEP) {
+                    m_turn_speed -= SPEED_STEP;
                 }
             }
         }
@@ -123,7 +122,8 @@ void Game::loop() {
         Game::m_main_window.draw(turn);
 
         // Draw bot names
-        Game::displayBotNames();
+        if(Game::m_state == STATE_PLAY)
+            Game::displayBotNames();
 
         // Draw map
         Game::m_map.draw();
@@ -133,7 +133,13 @@ void Game::loop() {
             Game::m_scores[i]->draw();
         }
 
-        Game::turn();
+        if(hasWinner()) {
+            m_state = STATE_FINISH;
+            Game::displayWinner();
+        }
+
+        if(Game::m_state == STATE_PLAY)
+            Game::turn();
 
         Game::m_main_window.display();
     }
@@ -168,8 +174,12 @@ void Game::turn() {
     // Rotate black hole sprite
     BlackHole::m_rotation = ((BlackHole::m_rotation + 90) % 360);
 
-    for(Bot* bot : Game::m_bots)
+    for(Bot* bot : Game::m_bots) {
         bot->turn();
+
+        if(bot->getMinerNumber() == 0)
+            m_bots.erase(std::remove(m_bots.begin(), m_bots.end(), bot), m_bots.end());
+    }
 
     // TODO : Fix one turn logging
     LOG << "[Polybasite] TURN N°" << m_nb_turn << '\n';
@@ -177,4 +187,66 @@ void Game::turn() {
     sf::sleep(sf::milliseconds(m_turn_speed));
 
     Game::m_nb_turn++;
+}
+
+bool Game::hasWinner() {
+    if(m_bots.size() <= 1 || m_nb_turn >= Game::MAX_TURN)
+        return true;
+    else
+        return false;
+}
+
+void Game::displayWinner() {
+    sf::RectangleShape rectangleAlpha(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT - Map::OFFSET_Y));
+    rectangleAlpha.setFillColor(sf::Color(128, 133, 142, 95));
+    rectangleAlpha.move(0, Map::OFFSET_Y);
+
+    sf::Font font;
+    font.loadFromFile("arial.ttf");
+
+    RichText winText(font);
+
+    if(m_bots.size() > 0) {
+        Bot* botWin = m_bots[0];
+        for(unsigned i = 1; i < m_bots.size(); ++i) {
+            Bot* bot = m_bots[i];
+
+            if(botWin->getPower() <= bot->getPower()) {
+                botWin = bot;
+            }
+            else if(botWin->getPower() == bot->getPower()) {
+                unsigned random = rand()%100 + 1;
+
+                if(random > 50) {
+                    botWin = bot;
+                }
+                else if (random == 50) {
+                    while(random == 50) {
+                        random = rand()%100 + 1;
+
+                        if(random > 50) {
+                            botWin = bot;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        winText << botWin->getColor() << botWin->getName();
+        winText << sf::Color::White << " win the fight";
+
+        sf::FloatRect textRect = winText.getLocalBounds();
+        winText.setOrigin(textRect.width/2,textRect.height/2);
+        winText.setPosition(sf::Vector2f(SCREEN_WIDTH/2, Map::OFFSET_Y/2));
+    }
+    else { // TODO : Test this case
+        winText << "Nobody win the fight";
+    }
+
+    Game::m_main_window.draw(rectangleAlpha);
+    Game::m_main_window.draw(winText);
 }
