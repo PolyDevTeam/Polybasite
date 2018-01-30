@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
             plb::Move move(i, (plb::DIRECTIONS) (rand()%5));
             moves.insert(move);
         }
-
+        
         sendFrame(moves);
     }
 

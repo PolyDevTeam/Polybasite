@@ -112,8 +112,8 @@ void Bot::addMiner(unsigned x, unsigned y, unsigned power) {
 }
 
 void Bot::deleteMiner(Miner *m) {
-    for(int i = 0; i < m_miners.size(); ++i) {
-        if(m_miners[i] == m) {
+    for(std::vector<Miner*>::iterator it = m_miners.begin(); it < m_miners.end(); ++it) {
+        if(*it == m) {
             m_miners.erase(std::remove(m_miners.begin(), m_miners.end(), m), m_miners.end());
         }
     }

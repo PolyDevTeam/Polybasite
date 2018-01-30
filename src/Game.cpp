@@ -8,7 +8,7 @@
 #include "Score.hpp"
 #include "RichText.hpp"
 #include "Socket.hpp"
-
+#include "BlackHole.hpp"
 #include "Error.hpp"
 
 GameState Game::m_state = STATE_UNINITIALISED;
@@ -34,6 +34,7 @@ void Game::start(int argc, char *argv[]) {
     LOG << "[PolyBasite] START\n";
 
     for (int i = 1; i < argc; ++i) {
+//       int i = 1;
         unsigned pos_x = rand() % m_map.getWidth();
         unsigned pos_y = rand() % m_map.getHeight();
 
@@ -41,6 +42,11 @@ void Game::start(int argc, char *argv[]) {
         bot->setColor(plb::Color::selectRandomSingle());
 
         Game::m_bots.push_back(bot);
+    }
+
+    // Load sprite
+    if(BlackHole::m_texture.loadFromFile("black_hole.png")) {
+        // TODO : Make an error
     }
 
     sf::ContextSettings settings;
@@ -159,10 +165,14 @@ void Game::displayBotNames() {
 }
 
 void Game::turn() {
+    // Rotate black hole sprite
+    BlackHole::m_rotation = ((BlackHole::m_rotation + 90) % 360);
+
     for(Bot* bot : Game::m_bots)
         bot->turn();
 
-    LOG << "[Polybasite] NEW TURN\n";
+    // TODO : Fix one turn logging
+    LOG << "[Polybasite] TURN N°" << m_nb_turn << '\n';
 
     sf::sleep(sf::milliseconds(m_turn_speed));
 

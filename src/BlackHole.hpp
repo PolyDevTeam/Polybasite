@@ -1,6 +1,8 @@
 #ifndef __BLACKHOLE_HPP__
 #define __BLACKHOLE_HPP__
 
+#include <SFML/Graphics/Sprite.hpp>
+
 #include "Entity.hpp"
 
 class BlackHole : public Entity {
@@ -16,6 +18,9 @@ public:
     virtual std::string serialize();
     virtual void deserialize(std::string &serializable);
     virtual void interact(Miner *miner);
+
+    static sf::Texture m_texture;
+    static unsigned m_rotation;
 };
 
 #endif /* __BLACKHOLE_HPP__ */
