@@ -13,27 +13,7 @@
 Map::Map(unsigned width, unsigned height) {
     m_width = width;
     m_height = height;
-
-    // TODO : Tempory
-    unsigned max = 8;
-    unsigned min = 1;
-
-    for (unsigned i = 0; i < m_width; ++i) {
-        VEntity line;
-
-        for (unsigned j = 0; j < m_height; ++j) {
-            unsigned prob = rand() % 100;
-
-            if (prob <= BlackHole::BLACK_HOLE_PROB) {
-                line.push_back(new BlackHole(i, j));
-            } else {
-                unsigned power = rand() % (max - min) + min;
-                line.push_back(new Basite(i, j, power));
-            }
-        }
-
-        m_entities.push_back(line);
-    }
+    createMap();
 }
 
 Map::~Map() {
@@ -133,4 +113,32 @@ void Map::deserialize(std::string &serializable) {
 
         m_entities.push_back(line);
     }
+}
+
+void Map::createMap() {
+    // TODO : Tempory
+    unsigned max = 8;
+    unsigned min = 1;
+
+    for (unsigned i = 0; i < m_width; ++i) {
+        VEntity line;
+
+        for (unsigned j = 0; j < m_height; ++j) {
+            unsigned prob = rand() % 100;
+
+            if (prob <= BlackHole::BLACK_HOLE_PROB) {
+                line.push_back(new BlackHole(i, j));
+            } else {
+                unsigned power = rand() % (max - min) + min;
+                line.push_back(new Basite(i, j, power));
+            }
+        }
+
+        m_entities.push_back(line);
+    }
+}
+
+void Map::clear() {
+    m_entities.clear();
+    createMap();
 }

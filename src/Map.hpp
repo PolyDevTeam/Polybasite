@@ -27,6 +27,8 @@ public:
 
     virtual std::string serialize();
     void deserialize(std::string &serializable);
+    void clear();
+    void createMap();
 private:
     std::vector<std::vector<Entity*>> m_entities;
     unsigned m_width;

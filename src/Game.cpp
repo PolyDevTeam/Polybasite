@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include <unistd.h>
+
 #include "Game.hpp"
 #include "Log.hpp"
 #include "Map.hpp"
@@ -20,12 +22,18 @@ vector<Score*> Game::m_scores;
 unsigned Game::m_nb_turn = 0;
 unsigned Game::m_turn_speed = 200;
 
+char** Game::save_argv;
+int Game::save_argc;
+
 void Game::start(int argc, char *argv[]) {
-    if (Game::m_state != STATE_UNINITIALISED)
+    if (Game::m_state != STATE_UNINITIALISED && Game::m_state != STATE_REPLAY)
         return;
 
     if(argc == 1)
         throw Error();
+
+    Game::save_argc = argc;
+    Game::save_argv = argv;
 
     // TODO : Add error message when no bot loaded
     // TODO : If only one bot remaining => He winning the match
@@ -43,23 +51,25 @@ void Game::start(int argc, char *argv[]) {
         Game::m_bots.push_back(bot);
     }
 
-    // Load sprite
-    if(BlackHole::m_texture.loadFromFile("black_hole.png")) {
-        // TODO : Make an error
+    if(m_state == STATE_UNINITIALISED) {
+        // Load sprite
+        if(BlackHole::m_texture.loadFromFile("black_hole.png")) {
+            // TODO : Make an error
+        }
+
+        sf::ContextSettings settings;
+        settings.antialiasingLevel = 8;
+
+        Game::m_main_window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
+                                   GAME_NAME,
+                                   sf::Style::Default,
+                                   settings);
+
+        // Centering windows
+        sf::VideoMode systemResolution = sf::VideoMode::getDesktopMode();
+        Game::m_main_window.setVerticalSyncEnabled(true);
+        Game::m_main_window.setPosition(sf::Vector2i((systemResolution.width / 2) - SCREEN_WIDTH/2, (systemResolution.height / 2) - SCREEN_HEIGHT / 2));
     }
-
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
-
-    Game::m_main_window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT),
-                               GAME_NAME,
-                               sf::Style::Default,
-                               settings);
-
-    // Centering windows
-    sf::VideoMode systemResolution = sf::VideoMode::getDesktopMode();
-    Game::m_main_window.setVerticalSyncEnabled(true);
-    Game::m_main_window.setPosition(sf::Vector2i((systemResolution.width / 2) - SCREEN_WIDTH/2, (systemResolution.height / 2) - SCREEN_HEIGHT / 2));
 
     Game::m_state = STATE_PLAY;
 
@@ -71,6 +81,19 @@ void Game::start(int argc, char *argv[]) {
 
     while (Game::m_state != STATE_QUIT)
         Game::loop();
+}
+
+void Game::restart() {
+    Game::m_state = STATE_REPLAY;
+    Game::m_nb_turn = 0;
+    Game::m_turn_speed = 200;
+
+    m_map.clear();
+    Game::m_bots.clear();
+    plb::Color::colorAlreadyPicked.clear();
+    m_scores.clear(); // TODO : Maybe delete it
+
+    start(save_argc, save_argv);
 }
 
 void Game::quit() {
@@ -101,6 +124,9 @@ void Game::loop() {
                 if(m_turn_speed >= SPEED_STEP) {
                     m_turn_speed -= SPEED_STEP;
                 }
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+                Game::restart();
             }
         }
 

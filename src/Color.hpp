@@ -11,8 +11,8 @@ namespace plb {
         static const unsigned MAX_RAND_COLOR = 8; // MAX_BOT
         static const sf::Color Grey;
         static sf::Color selectRandomSingle();
-    private:
         static std::vector<sf::Color> colorAlreadyPicked;
+    private:
         static bool contain(sf::Color c);
     };
 }

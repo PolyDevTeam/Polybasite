@@ -16,6 +16,7 @@
 enum GameState {
     STATE_UNINITIALISED,
     STATE_PLAY,
+    STATE_REPLAY,
     STATE_PAUSE,
     STATE_FINISH,
     STATE_QUIT,
@@ -28,6 +29,8 @@ public:
     static const unsigned SCREEN_HEIGHT = 650;
     static const unsigned MAX_TURN = 1500;
     static const unsigned SPEED_STEP = 50;
+    static char** save_argv;
+    static int save_argc;
 
     static GameState m_state;
     static sf::RenderWindow m_main_window;
@@ -38,6 +41,7 @@ public:
     static unsigned m_turn_speed;
 
     static void start(int argc, char* argv[]);
+    static void restart();
     static void quit();
 private:
     static void turn();
