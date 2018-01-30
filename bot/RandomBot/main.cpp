@@ -1,5 +1,4 @@
 #include <iostream>
-#include <unistd.h>
 #include <string>
 #include <set>
 
@@ -9,7 +8,7 @@
 int main(int argc, char* argv[]) {
     if(argc != 3)
         return -1;
-    
+
     std::cout << "DEBUT BOT RandomBot" << std::endl;
 
     plb::Map map;

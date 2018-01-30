@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <set>
+#include <unistd.h>
 
 #include <SFML/Network.hpp>
 
@@ -66,6 +67,9 @@ static int port_server;
 static void initBot(std::string botName, char* argv[], plb::Map &map) {
     // TODO : Prevent bot got ; in his name
     // TODO : Prevent if port number is already taken by an another bot
+
+    sleep(1);
+//    usleep(500000); // Wait for main thread
 
     // Send bot name to the main thread
     port_server = atoi(argv[1]);
