@@ -5,6 +5,9 @@
 #include "Game.hpp"
 #include "Util.hpp"
 
+unsigned BlackHole::m_rotation = 0;
+sf::Texture BlackHole::m_texture;
+
 BlackHole::BlackHole() : Entity() {
 
 }
@@ -18,14 +21,17 @@ BlackHole::~BlackHole() {
 }
 
 void BlackHole::draw() const {
-    unsigned pos_x = ENTITY_WIDTH * m_x + Map::OFFSET_X;
-    unsigned pos_y = ENTITY_HEIGHT * m_y + Map::OFFSET_Y;
+    unsigned pos_x = ENTITY_WIDTH * m_x + Map::OFFSET_X + 10;
+    unsigned pos_y = ENTITY_HEIGHT * m_y + Map::OFFSET_Y + 10;
 
-    sf::RectangleShape rectangle(sf::Vector2f(ENTITY_WIDTH, ENTITY_HEIGHT));
-    rectangle.move(pos_x, pos_y);
-    rectangle.setFillColor(::Color::Green);
+    sf::Sprite sprite;
+    sprite.setTexture(m_texture);
+    sprite.setScale(sf::Vector2f(0.15f, 0.15f));
+    sprite.setOrigin(sf::Vector2f(70, 70));
+    sprite.move(pos_x, pos_y);
+    sprite.rotate(m_rotation);
 
-    Game::m_main_window.draw(rectangle);
+    Game::m_main_window.draw(sprite);
 }
 
 std::string BlackHole::serialize() {

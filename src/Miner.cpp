@@ -6,6 +6,7 @@
 #include "Miner.hpp"
 #include "Game.hpp"
 #include "Util.hpp"
+#include "Log.hpp"
 
 Miner::Miner() : Entity() {
 
@@ -96,24 +97,25 @@ unsigned Miner::getOwner() const {
 void Miner::interact(Miner *miner) {
     std::cout << "INTERACT MINER" << std::endl;
 
-    Bot* bot = Game::m_bots[miner->getOwner()];
+    Bot* bot = Game::m_bots[getOwner()];
+    Bot* target = Game::m_bots[miner->getOwner()];
 
     if(this->getOwner() != miner->getOwner()) {
         if(getPower() == miner->getPower()) {
-            bot->deleteMiner(this);
-            bot->deleteMiner(miner);
-            Game::m_map.setEntity(new Basite(this->getX(), this->getY(), 0));
+            Game::m_map.setEntity(new Basite(m_x, m_y, 0));
             Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
+            bot->deleteMiner(this);
+            target->deleteMiner(miner);
         }
         else if(getPower() > miner->getPower()) {
             m_power = 0;
-            bot->deleteMiner(miner);
             bot->addMiner(miner->getX(), miner->getY(), m_power - miner->getOwner());
+            target->deleteMiner(miner);
         }
         else if(getPower() < miner->getPower()) {
             miner->setPower(0);
-            bot->deleteMiner(this);
             bot->addMiner(m_x, m_y, miner->getPower() - m_power);
+            bot->deleteMiner(this);
         }
     }
     else {
