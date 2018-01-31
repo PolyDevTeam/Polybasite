@@ -15,7 +15,6 @@ Miner::~Miner() {
 }
 
 void Miner::draw() const {
-//    std::cout << "DRAW MINER" << std::endl;
 
     unsigned pos_x = ENTITY_WIDTH * m_x + Map::OFFSET_X;
     unsigned pos_y = ENTITY_HEIGHT * m_y + Map::OFFSET_Y;

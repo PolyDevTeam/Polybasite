@@ -1,0 +1,9 @@
+- JEU
+Received 100 bytes from 127.0.0.1 on port 7777
+Message : - Test Communication IA -----> JEU 
+
+
+- IA
+- en attente 
+Received 100 bytes from 127.0.0.1 on port 8888
+Message : - Test Communication JEU -----> IA 

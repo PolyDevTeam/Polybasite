@@ -1,0 +1,8 @@
+- Basite en 0 0
+- Basite en 1 0
+- Miner en 0 0
+- Black Hole en 1 0
+ACTION
+miner power = 8
+- Basite en 0 0
+ Test Mouvement Mineur sur BlackHole OK 

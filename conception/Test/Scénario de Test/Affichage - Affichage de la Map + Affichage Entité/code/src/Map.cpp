@@ -13,7 +13,6 @@ Map::Map(unsigned width, unsigned height) {
     m_width = width;
     m_height = height;
 
-    // TODO : Tempory
     unsigned max = 8;
     unsigned min = 1;
 

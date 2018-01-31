@@ -23,9 +23,6 @@ void Game::start(int argc, char *argv[]) {
 
     Game::m_main_window.setVerticalSyncEnabled(true);
 
-    // TODO : Initialise bot whith socket communication
-    // TODO : Add logging system after this branch
-
     srand(time(NULL)); // Rand initialisation
 
     Game::m_state = STATE_INIT;
@@ -41,7 +38,6 @@ void Game::quit() {
 }
 
 void Game::loop() {
-    while (Game::m_main_window.isOpen()) {
         sf::Event event;
         while (Game::m_main_window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -57,7 +53,7 @@ void Game::loop() {
 
 
         Game::m_main_window.display();
-    }
-
-    Game::quit();
+        std::this_thread::sleep_for (std::chrono::seconds(3));
+        std::cout << " Test Affichage OK " << std::endl;
+        Game::quit();
 }
