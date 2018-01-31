@@ -13,6 +13,7 @@
 Map::Map(unsigned width, unsigned height) {
     m_width = width;
     m_height = height;
+    m_blackHoleNumber = 0;
     createMap();
 }
 
@@ -127,6 +128,7 @@ void Map::createMap() {
             unsigned prob = rand() % 100;
 
             if (prob <= BlackHole::BLACK_HOLE_PROB) {
+                m_blackHoleNumber++;
                 line.push_back(new BlackHole(i, j));
             } else {
                 unsigned power = rand() % (max - min) + min;
@@ -141,4 +143,21 @@ void Map::createMap() {
 void Map::clear() {
     m_entities.clear();
     createMap();
+}
+
+unsigned Map::getPower() const {
+    unsigned power = 0;
+
+    for(unsigned i = 0; i < m_width; ++i) {
+        for(unsigned j = 0; j < m_height; ++j) {
+            Entity* entity = m_entities[i][j];
+            power = power + entity->getPower();
+        }
+    }
+
+    return power;
+}
+
+unsigned Map::getBlackHoleNumber() const {
+    return m_blackHoleNumber;
 }

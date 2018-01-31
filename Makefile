@@ -5,7 +5,8 @@ CFLAGS= -Wall -std=c++11
 EXECS= Polybasite.exe
 BOTS = RandomBot RandomBot
 
-OBJ= out/Error.o out/FatalError.o out/Move.o \
+OBJ= out/ProgressBar.o \
+	 out/Error.o out/FatalError.o out/Move.o \
 	 out/Util.o out/Serializable.o out/Socket.o \
 	 out/Log.o out/Line.o out/RichText.o out/Miner.o \
 	 out/Bot.o out/BlackHole.o out/Color.o \
@@ -102,6 +103,9 @@ out/Move.o: src/Move.cpp src/Move.hpp
 	@echo "*** Building Move.cpp ***"
 	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
 
+out/ProgressBar.o: src/ProgressBar.cpp src/ProgressBar.hpp
+	@echo "*** Building ProgressBar.cpp ***"
+	$(CC) -o $@ $(CFLAGS) -c $< $(LIBS)
 clean:
 	@echo "*** Cleaning all .o ***"
 	rm -f out/*.o

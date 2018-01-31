@@ -121,3 +121,7 @@ sf::Text RichText::createText(const sf::String &str) const {
 
     return text;
 }
+
+void RichText::setCharacterSize(unsigned size) {
+    m_characterSize = size;
+}

@@ -16,6 +16,7 @@ public:
     virtual std::string serialize();
     virtual void deserialize(std::string &serializable);
     void interact(Miner *miner);
+    unsigned getPower() const;
 private:
     unsigned m_power;
 };

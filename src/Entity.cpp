@@ -62,3 +62,7 @@ void Entity::deserialize(std::string &serializable) {
 void Entity::interact(Miner* miner) {
 
 }
+
+unsigned Entity::getPower() const {
+    return 0;
+}

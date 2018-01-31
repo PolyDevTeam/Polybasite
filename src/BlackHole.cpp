@@ -4,6 +4,7 @@
 #include "BlackHole.hpp"
 #include "Game.hpp"
 #include "Util.hpp"
+#include "Basite.hpp"
 
 unsigned BlackHole::m_rotation = 0;
 sf::Texture BlackHole::m_texture;
@@ -63,4 +64,8 @@ void BlackHole::interact(Miner *miner) {
     Bot* bot = Game::m_bots[miner->getOwner()];
     bot->deleteMiner(miner);
     Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
+}
+
+unsigned BlackHole::getPower() const {
+    return 0;
 }
