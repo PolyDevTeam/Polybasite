@@ -81,3 +81,7 @@ void Basite::interact(Miner *miner) {
         }
     }
 }
+
+unsigned Basite::getPower() const {
+    return m_power;
+}

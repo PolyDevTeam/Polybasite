@@ -21,6 +21,8 @@ public:
 
     sf::FloatRect getLocalBounds() const;
     sf::FloatRect getGlobalBounds() const;
+
+    void setCharacterSize (unsigned size);
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 private:

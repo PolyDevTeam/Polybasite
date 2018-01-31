@@ -49,6 +49,7 @@ private:
     static void displayBotNames();
     static bool hasWinner();
     static void displayWinner();
+    static void displayScore();
 };
 
 #endif /* __GAME_HPP__ */

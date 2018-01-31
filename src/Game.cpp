@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include <unistd.h>
-
 #include "Game.hpp"
 #include "Log.hpp"
 #include "Map.hpp"
@@ -74,10 +72,10 @@ void Game::start(int argc, char *argv[]) {
     Game::m_state = STATE_PLAY;
 
     // TODO : Tempory
-    unsigned int a = 42;
-    for(int i = 0; i < 5; i++){
-        Game::m_scores.push_back(new Score(i, std::to_string(i), &a, sf::Color(200, 120, i*20, 220) ) );
-    }
+//    unsigned int a = 42;
+//    for(int i = 0; i < 5; i++){
+//        Game::m_scores.push_back(new Score(i, std::to_string(i), &a, sf::Color(200, 120, i*20, 220) ) );
+//    }
 
     while (Game::m_state != STATE_QUIT)
         Game::loop();
@@ -144,8 +142,13 @@ void Game::loop() {
         turn.setCharacterSize(18);
         turn.setFillColor(sf::Color::White);
         turn.move(605, 50);
-        turn.setString("Turn = " + std::to_string(Game::m_nb_turn));
+        turn.setString("Round #" + std::to_string(Game::m_nb_turn));
+
+        sf::RectangleShape line(sf::Vector2f(419 - 10, 2)); // TODO : 419 = Score width
+        line.move(605, 73);
+
         Game::m_main_window.draw(turn);
+        Game::m_main_window.draw(line);
 
         // Draw bot names
         if(Game::m_state == STATE_PLAY)
@@ -155,9 +158,10 @@ void Game::loop() {
         Game::m_map.draw();
 
         // Draw Scores
-        for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
-            Game::m_scores[i]->draw();
-        }
+//        for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
+//            Game::m_scores[i]->draw();
+//        }
+        Game::displayScore();
 
         if(hasWinner()) {
             m_state = STATE_FINISH;
@@ -275,4 +279,13 @@ void Game::displayWinner() {
 
     Game::m_main_window.draw(rectangleAlpha);
     Game::m_main_window.draw(winText);
+}
+
+void Game::displayScore() {
+    int i = 0;
+    for(Bot* bot: m_bots) {
+        Score score(i, bot);
+        score.draw();
+        ++i;
+    }
 }

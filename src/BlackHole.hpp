@@ -18,6 +18,7 @@ public:
     virtual std::string serialize();
     virtual void deserialize(std::string &serializable);
     virtual void interact(Miner *miner);
+    unsigned getPower() const;
 
     static sf::Texture m_texture;
     static unsigned m_rotation;

@@ -2,57 +2,67 @@
 
 #include "Score.hpp"
 #include "Game.hpp"
-#include "Color.hpp"
+#include "RichText.hpp"
+#include "ProgressBar.hpp"
 
+Score::Score(unsigned int position, Bot *bot) : m_position(position), m_bot(bot){
+
+}
 
 Score::~Score() {
-    delete this;
-}
 
-Score::Score(unsigned int i, std::string name, unsigned* power, sf::Color color) {
-    // Dimension for 4 Score + 1 total
-    m_width = 419;
-    m_height = 100;
-    m_x = 605;
-    // n°eme bot * (ScoreSize + spaceBetween)  + offset up
-    m_y = i * (m_height + 10) + 50;
-    m_name = name;
-    m_power = power;
-    m_color = color;
 }
-
 
 void Score::draw() const {
-    sf::RectangleShape rectangle(sf::Vector2f(m_width, m_height));
-    rectangle.move(m_x, m_y);
-    rectangle.setFillColor(m_color);
-    Game::m_main_window.draw(rectangle);
+    unsigned x = SCORE_OFFSET_X;
+    unsigned y = m_position * (SCORE_HEIGHT + 10) + SCORE_OFFSET_Y;
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
         std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
     }
 
-    sf::Text name;
-    name.setFont(font);
-    name.setCharacterSize(18);
-    name.setFillColor(sf::Color::Red);
-    name.move(m_x + 5, m_y + 5);
+    // Display bot's name
+    y += 10;
 
-    name.setString(m_name);
-
-    sf::Text score;
-    score.setFont(font);
-    score.setCharacterSize(16);
-    score.setFillColor(sf::Color::Black);
-    score.move(m_x + 5, m_y + 35);
-
-    score.setString(std::to_string(*m_power));
-
-
-    //std::cout << "SCORE DRAW" << std::endl;
-    //std::cout << *m_power << std::endl;
-
+    RichText name(font);
+    name.setCharacterSize(20);
+    name << m_bot->getColor() << m_bot->getName() << " : ";
+    name.move(x, y);
     Game::m_main_window.draw(name);
-    Game::m_main_window.draw(score);
+
+    // Display territory percent
+    unsigned mapTerritory = (Game::m_map.getWidth() * Game::m_map.getHeight()) - Game::m_map.getBlackHoleNumber();
+    float percentTerritory = ((float) m_bot->getMinerNumber() / (float) mapTerritory)*100.0f;
+
+    x += 20;
+    y += 40;
+
+    ProgressBar territoryBar(percentTerritory);
+    territoryBar.setShowBackgroundAndFrame(true);
+    territoryBar.setSize({ SCORE_WIDTH - 40.0f, 20.f });
+    territoryBar.move(x, y);
+    territoryBar.setColor(sf::Color(255,239,229));
+    territoryBar.setBackgroundColor(sf::Color(23, 23, 25));
+    territoryBar.setFrameColor(sf::Color(23, 23, 25));
+
+    Game::m_main_window.draw(territoryBar);
+
+    // Display power percent
+    float powerPercent = (float) m_bot->getPower() / (float) (Game::m_map.getPower() == 0 ? 1 : Game::m_map.getPower());
+    powerPercent *= 100.0f;
+
+    y += 30;
+
+    ProgressBar powerBar(powerPercent);
+    powerBar.setShowBackgroundAndFrame(true);
+    powerBar.setSize({ SCORE_WIDTH - 40.0f, 20.f });
+    powerBar.move(x, y);
+    powerBar.setColor(sf::Color(111, 177, 207));
+    powerBar.setBackgroundColor(sf::Color(23, 23, 25));
+    powerBar.setFrameColor(sf::Color(23, 23, 25));
+
+    Game::m_main_window.draw(powerBar);
+
+    // TODO : Display legend of color of progress bar (Not here maybe)
 }

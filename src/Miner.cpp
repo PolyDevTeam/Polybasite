@@ -7,6 +7,7 @@
 #include "Game.hpp"
 #include "Util.hpp"
 #include "Log.hpp"
+#include "Basite.hpp"
 
 Miner::Miner() : Entity() {
 

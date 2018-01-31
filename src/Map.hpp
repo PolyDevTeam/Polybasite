@@ -29,10 +29,13 @@ public:
     void deserialize(std::string &serializable);
     void clear();
     void createMap();
+    unsigned getPower() const;
+    unsigned getBlackHoleNumber() const;
 private:
     std::vector<std::vector<Entity*>> m_entities;
     unsigned m_width;
     unsigned m_height;
+    unsigned m_blackHoleNumber;
 };
 
 #endif /* __MAP_HPP__ */
