@@ -14,6 +14,7 @@ public:
 
     Score(unsigned int position, Bot* bot);
     ~Score();
+    static void drawLegend();
     void draw() const;
 private:
     unsigned m_position;

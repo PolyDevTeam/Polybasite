@@ -33,6 +33,7 @@ void Game::start(int argc, char *argv[]) {
     Game::save_argc = argc;
     Game::save_argv = argv;
 
+    // TODO : Add condition to black more than 4 bots
     // TODO : Add error message when no bot loaded
     // TODO : If only one bot remaining => He winning the match
     srand(time(NULL)); // Rand initialisation
@@ -70,12 +71,6 @@ void Game::start(int argc, char *argv[]) {
     }
 
     Game::m_state = STATE_PLAY;
-
-    // TODO : Tempory
-//    unsigned int a = 42;
-//    for(int i = 0; i < 5; i++){
-//        Game::m_scores.push_back(new Score(i, std::to_string(i), &a, sf::Color(200, 120, i*20, 220) ) );
-//    }
 
     while (Game::m_state != STATE_QUIT)
         Game::loop();
@@ -131,24 +126,11 @@ void Game::loop() {
         // Clear screen
         Game::m_main_window.clear();
 
-        // TODO : Tempory display turn
-        sf::Font font;
-        if (!font.loadFromFile("arial.ttf")) {
-            std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
-        }
+        // Draw turn
+        Game::displayTurn();
 
-        sf::Text turn;
-        turn.setFont(font);
-        turn.setCharacterSize(18);
-        turn.setFillColor(sf::Color::White);
-        turn.move(605, 50);
-        turn.setString("Round #" + std::to_string(Game::m_nb_turn));
-
-        sf::RectangleShape line(sf::Vector2f(419 - 10, 2)); // TODO : 419 = Score width
-        line.move(605, 73);
-
-        Game::m_main_window.draw(turn);
-        Game::m_main_window.draw(line);
+        // Draw legend progress bar
+        Score::drawLegend();
 
         // Draw bot names
         if(Game::m_state == STATE_PLAY)
@@ -158,9 +140,6 @@ void Game::loop() {
         Game::m_map.draw();
 
         // Draw Scores
-//        for (unsigned i = 0; i < Game::m_scores.size(); ++i) {
-//            Game::m_scores[i]->draw();
-//        }
         Game::displayScore();
 
         if(hasWinner()) {
@@ -288,4 +267,24 @@ void Game::displayScore() {
         score.draw();
         ++i;
     }
+}
+
+void Game::displayTurn() {
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
+    }
+
+    sf::Text turn;
+    turn.setFont(font);
+    turn.setCharacterSize(18);
+    turn.setFillColor(sf::Color::White);
+    turn.move(Score::SCORE_OFFSET_X, 50);
+    turn.setString("Round #" + std::to_string(Game::m_nb_turn));
+
+    sf::RectangleShape line(sf::Vector2f(Score::SCORE_WIDTH - 10, 2));
+    line.move(Score::SCORE_OFFSET_X, Score::SCORE_OFFSET_Y - 2);
+
+    Game::m_main_window.draw(turn);
+    Game::m_main_window.draw(line);
 }

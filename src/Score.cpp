@@ -13,6 +13,37 @@ Score::~Score() {
 
 }
 
+void Score::drawLegend() {
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cerr << "ERROR : FONT NOT FOUND" << std::endl;
+    }
+
+    RichText territoryPercentText(font);
+    territoryPercentText.setCharacterSize(20);
+    territoryPercentText << "Territory percent : ";
+    territoryPercentText.move((Game::SCREEN_WIDTH - SCORE_WIDTH/2) - territoryPercentText.getLocalBounds().width, Game::SCREEN_HEIGHT - SCORE_HEIGHT);
+
+    sf::RectangleShape rectangleTerritory(sf::Vector2f(50, 20));
+    rectangleTerritory.setFillColor(sf::Color(255,239,229));
+    rectangleTerritory.move((Game::SCREEN_WIDTH - SCORE_WIDTH/2) + 10, Game::SCREEN_HEIGHT - SCORE_HEIGHT + 2);
+
+    Game::m_main_window.draw(rectangleTerritory);
+    Game::m_main_window.draw(territoryPercentText);
+
+    RichText powerPercentText(font);
+    powerPercentText.setCharacterSize(20);
+    powerPercentText << "Power percent : ";
+    powerPercentText.move((Game::SCREEN_WIDTH - SCORE_WIDTH/2) - powerPercentText.getLocalBounds().width, Game::SCREEN_HEIGHT - SCORE_HEIGHT + 30);
+
+    sf::RectangleShape rectanglePower(sf::Vector2f(50, 20));
+    rectanglePower.setFillColor(sf::Color(111, 177, 207));
+    rectanglePower.move((Game::SCREEN_WIDTH - SCORE_WIDTH/2) + 10, Game::SCREEN_HEIGHT - SCORE_HEIGHT + 30 + 2);
+
+    Game::m_main_window.draw(rectanglePower);
+    Game::m_main_window.draw(powerPercentText);
+}
+
 void Score::draw() const {
     unsigned x = SCORE_OFFSET_X;
     unsigned y = m_position * (SCORE_HEIGHT + 10) + SCORE_OFFSET_Y;
@@ -63,6 +94,4 @@ void Score::draw() const {
     powerBar.setFrameColor(sf::Color(23, 23, 25));
 
     Game::m_main_window.draw(powerBar);
-
-    // TODO : Display legend of color of progress bar (Not here maybe)
 }
