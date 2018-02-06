@@ -3,11 +3,11 @@ TEST A FAIRE
 Mineur
 - Mouvement Mineur sur
 	- Basite (attaque) -> OK
-	- autre Mineur Allié (don de puissance)
+	- autre Mineur Allié (don de puissance) -> OK
 	- autre Mineur Ennemi (attaque)
 	- BlackHole (attaque défaite obligatoire) -> OK
 
-- gain de puissance par tour
+- gain de puissance par tour -> OK
 
 IA
 - connection IA + communication IA. -> OK

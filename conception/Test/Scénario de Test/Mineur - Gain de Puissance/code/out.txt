@@ -1,0 +1,26 @@
+- Basite en 0 0
+- Basite en 0 1
+- Basite en 0 2
+- Basite en 1 0
+- Basite en 1 1
+- Basite en 1 2
+- Miner en 0 0
+- Miner en 0 1
+- Miner en 0 2
+- Miner en 1 0
+- Miner en 1 1
+- Miner en 1 2
+ACTION
+miner 1 power = 5
+miner 0 power = 2
+miner 3 power = 5
+miner 2 power = 6
+miner 5 power = 8
+miner 4 power = 7
+new miner 1 power = 6
+new miner 0 power = 3
+new miner 3 power = 6
+new miner 2 power = 7
+new miner 5 power = 8
+new miner 4 power = 8
+ Test Gain de puissance par tour 
