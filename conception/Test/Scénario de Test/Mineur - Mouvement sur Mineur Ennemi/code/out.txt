@@ -1,0 +1,17 @@
+- Miner en 0 0
+- Miner en 0 1
+- Miner en 0 2
+- Basite en 1 0
+- Basite en 1 1
+- Basite en 1 2
+ACTION
+basite power = 1
+miner power = 5
+- Miner en 1 0
+basite power = 5
+miner power = 1
+- Basite en 0 1
+basite power = 3
+miner power = 3
+- Miner en 1 2
+ Test Mouvement Mineur sur Basite OK 
