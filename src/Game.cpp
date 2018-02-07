@@ -15,7 +15,6 @@ GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map(30, 30);
 std::vector <Bot*> Game::m_bots;
-vector<Score*> Game::m_scores;
 
 unsigned Game::m_nb_turn = 0;
 unsigned Game::m_turn_speed = 200;
@@ -89,7 +88,6 @@ void Game::restart() {
 
     Game::m_bots.clear();
     plb::Color::colorAlreadyPicked.clear();
-    m_scores.clear(); // TODO : Maybe delete it
 
     start(save_argc, save_argv);
 }
