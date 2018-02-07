@@ -24,6 +24,7 @@ public:
     unsigned getOwner() const;
     unsigned getMinerNumber() const;
     unsigned getPower() const;
+    void stopBot();
 private:
     Bot(const Bot& bot); // std::thread isn't copyable
 

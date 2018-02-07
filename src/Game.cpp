@@ -82,6 +82,11 @@ void Game::restart() {
     Game::m_turn_speed = 200;
 
     m_map.clear();
+
+    for(Bot* bot : m_bots) {
+        bot->stopBot();
+    }
+
     Game::m_bots.clear();
     plb::Color::colorAlreadyPicked.clear();
     m_scores.clear(); // TODO : Maybe delete it
@@ -98,8 +103,10 @@ void Game::quit() {
 
         // TODO : Error generated here
         // TODO : Fix all memory leaks
-//        for(Bot* bot : Game::m_bots)
+        for(Bot* bot : Game::m_bots) {
+            bot->stopBot();
 //            delete bot;
+        }
     }
 }
 
@@ -114,7 +121,7 @@ void Game::loop() {
                 m_turn_speed += SPEED_STEP;
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                if(m_turn_speed >= SPEED_STEP) {
+                if(m_turn_speed >= 100) {
                     m_turn_speed -= SPEED_STEP;
                 }
             }

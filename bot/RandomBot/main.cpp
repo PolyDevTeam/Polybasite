@@ -14,9 +14,7 @@ int main(int argc, char* argv[]) {
     plb::Map map;
     initBot("RandomBot", argv, map);
 
-    // TODO : Maybe send exit message ?
-    while(1) {
-        getFrame(map);
+    while(getFrame(map) == true) {
 
         std::set<plb::Move> moves;
         std::vector<plb::Miner*> miners = map.getMiners();

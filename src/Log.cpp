@@ -14,7 +14,9 @@ Log& Log::getInstance() {
 
 void Log::close() {
     if(m_instance != nullptr) {
+#ifdef DEBUG
         std::cout << "CLOSE LOG" << std::endl;
+#endif
         m_logFile.close();
         delete m_instance;
         m_instance = nullptr;

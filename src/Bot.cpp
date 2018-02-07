@@ -74,6 +74,11 @@ void Bot::setColor(sf::Color color) {
 }
 
 void Bot::turn() {
+    if(m_miners.size() == 0) {
+        stopBot();
+        return;
+    }
+
     // Add one power by miner
     for (Miner *miner : m_miners) {
         if (miner->getPower() < Miner::MAX_POWER - 1) {
@@ -97,10 +102,6 @@ void Bot::turn() {
     for(Move move : moves) {
         move.move(m_miners);
     }
-
-    // TODO : Kill bot and destroy all needed
-    if(m_miners.size() == 0)
-        std::cout << "BOT A DETRUIRE" << std::endl;
 }
 
 void Bot::addMiner(unsigned x, unsigned y, unsigned power) {
@@ -135,4 +136,14 @@ unsigned Bot::getPower() const {
     }
 
     return power;
+}
+
+void Bot::stopBot() {
+    m_socket->send("127.0.0.1", m_port, "END");
+
+    for(std::vector<Bot*>::iterator it = Game::m_bots.begin(); it < Game::m_bots.end(); ++it) {
+        if(*it == this) {
+            Game::m_bots.erase(std::remove(Game::m_bots.begin(), Game::m_bots.end(), this), Game::m_bots.end());
+        }
+    }
 }

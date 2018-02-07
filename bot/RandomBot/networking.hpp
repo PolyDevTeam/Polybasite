@@ -69,7 +69,6 @@ static void initBot(std::string botName, char* argv[], plb::Map &map) {
     // TODO : Prevent if port number is already taken by an another bot
 
     sleep(1);
-//    usleep(500000); // Wait for main thread
 
     // Send bot name to the main thread
     port_server = atoi(argv[1]);
@@ -83,9 +82,16 @@ static void initBot(std::string botName, char* argv[], plb::Map &map) {
     map.deserialize(mapString);
 }
 
-static void getFrame(plb::Map &map) {
+static bool getFrame(plb::Map &map) {
     std::string mapString  = socket->receive();
+
+    std::string msg = mapString.substr(0, mapString.find(":", 0));
+
+    if(msg.compare("END") == 0)
+        return false;
+
     map.deserialize(mapString);
+    return true;
 }
 
 static void sendFrame(std::set<plb::Move> moves) {

@@ -96,7 +96,7 @@ unsigned Miner::getOwner() const {
 }
 
 void Miner::interact(Miner *miner) {
-    std::cout << "INTERACT MINER" << std::endl;
+    LOG << "INTERACT MINER\n";
 
     Bot* bot = Game::m_bots[getOwner()];
     Bot* target = Game::m_bots[miner->getOwner()];
