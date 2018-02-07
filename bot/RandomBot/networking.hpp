@@ -85,7 +85,7 @@ static void initBot(std::string botName, char* argv[], plb::Map &map) {
 static bool getFrame(plb::Map &map) {
     std::string mapString  = socket->receive();
 
-    std::string msg = mapString.substr(0, mapString.find(":", 0));
+    std::string msg = mapString.substr(0, 3);
 
     if(msg.compare("END") == 0)
         return false;
