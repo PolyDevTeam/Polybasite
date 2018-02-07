@@ -276,8 +276,8 @@ namespace plb {
             return *this;
         }
     private:
-        DIRECTIONS m_directions;
         unsigned m_minerId;
+        DIRECTIONS m_directions;
     };
 }
 

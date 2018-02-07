@@ -13,7 +13,7 @@ Miner::Miner() : Entity() {
 
 }
 
-Miner::Miner(unsigned owner, unsigned x, unsigned y) : m_owner(owner), Entity(x, y), m_power(0) {
+Miner::Miner(unsigned owner, unsigned x, unsigned y) : Entity(x, y), m_owner(owner), m_power(0) {
     Game::m_map.setEntity(this);
 }
 

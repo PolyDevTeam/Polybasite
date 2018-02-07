@@ -7,6 +7,7 @@
 class Basite : public Entity {
 public:
     static const unsigned MAX_POWER = 8;
+    static const unsigned MIN_POWER = 1;
 
     Basite();
     Basite(unsigned x, unsigned y, unsigned power);

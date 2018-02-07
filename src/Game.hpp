@@ -29,6 +29,7 @@ public:
     static const unsigned SCREEN_HEIGHT = 650;
     static const unsigned MAX_TURN = 1500;
     static const unsigned SPEED_STEP = 50;
+    static const unsigned MAX_BOT = 4;
     static char** save_argv;
     static int save_argc;
 

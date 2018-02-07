@@ -5,7 +5,7 @@
 #include "Util.hpp"
 #include "Log.hpp"
 
-Move::Move(unsigned minerId, DIRECTIONS directions) : m_minerId(minerId), m_directions(directions) {
+Move::Move(unsigned minerId, DIRECTIONS directions) : m_directions(directions), m_minerId(minerId) {
 
 }
 

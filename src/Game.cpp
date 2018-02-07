@@ -29,12 +29,13 @@ void Game::start(int argc, char *argv[]) {
     if(argc == 1)
         throw Error();
 
+    if(argc > (int) MAX_BOT + 1)
+        throw Error();
+
     Game::save_argc = argc;
     Game::save_argv = argv;
 
-    // TODO : Add condition to black more than 4 bots
     // TODO : Add error message when no bot loaded
-    // TODO : If only one bot remaining => He winning the match
     srand(time(NULL)); // Rand initialisation
 
     LOG << "[PolyBasite] START\n";
