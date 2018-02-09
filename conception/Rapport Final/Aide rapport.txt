@@ -1,0 +1,37 @@
+
+Voilà l’ordre de passage pour vos soutenances de projet du jeudi 15 février :
+
+10h00 : Jonathan Allam, Benjamin Betti
+10h15 : Robin Mancini , Valentin Macé
+10h30 : Maxime Gautin, Dorian Rossat
+10h45 : Céline PHAN, Florian BRUNEAU
+11h00 : Amélie LUPO, Stéphane Nativel
+11h15 : Zakariae EDDAHBANI, Omar BERRADA
+11h30 : Raphael Ostrov, Baptiste Faraud
+11h45 : Isis Alié-Sandevoir, Alexandre Moutouh
+12h00 : Damien Gaudard, Loic Bizot
+12h15 : Anais Ait Said, Julien Marie
+12h30 : Nicolas Marin, Stéphane Tillier
+12h45 : Theo Querment, Dylan Demange
+13h00 : Clement Stamegna, Guillaume Michon
+13h15 : Amairi Amna, Bastien Santini
+
+Concernant la présentation :
+- 5 minutes de présentation, c’est très court faite le choix de ce que vous allez présenter
+- 5 minutes de démonstration de votre projet sur votre machine
+- 5 minutes de question
+
+Concernant le dernier document à rendre :
+
+- Un rapport final au format PDF, par exemple :
+   * Présentation de sujet : prenez le temps de présenter le sujet, de poser le problème par rapport à la POO…
+   * Organisation du travail (planning, sprint, modélisation, développement, tests, …)
+   * Difficultés « réelles » et solutions apportées (je veux dire pas : on a eu du mal à installer truc chouette … ou on a découvert le langage bidule …) donc des structures de données adaptées, des algorithmes, des « morceaux de code » utiles à la compréhension ...
+   * Conclusion
+
+-> Le rapport est à rendre au plus tard le mardi 13 février.
+
+- Le projet doit-être disponible en version finale sur votre dépôt Git à la même date, soit le mardi 13 février au plus tard.
+ 
+Bien cordialement,
+Sébastien Mavromatis.

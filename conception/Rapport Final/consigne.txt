@@ -1,0 +1,26 @@
+Sujet :
+L'objectif principal du projet est d'utiliser les concepts "objet", les mécanismes induits et de multiplier le plus possible les interactions entre objets. Le sujet est totalement libre dans le mesure ou il permet d'atteindre l'objectif.
+Les années précédentes, les élèves ont majoritairement choisi d'implémenter des "moteurs de jeu", essentiellement des "jeux de la vie" détournés. L'idée directrice étant de faire évoluer des populations communicantes (communication objet) formés par divers d'individus (polymorphisme). L'évolution de ces populations étant dictée par des règles simples : se nourrir, se reproduire, vieillir, se déplacer, communiquer …
+L'évaluation du projet se fait sur la base des notions objets utilisés. L'interface graphique associée au moteur de jeu est facultative et laissée à votre discrétion. Elle peut permettre de mieux comprendre les mécanismes mis en oeuvre et d'avoir un retour "visuel" mais apporte peu au projet concernant l'aspect objet.
+
+Nombre d'élèves par projet : 2
+
+Langage de programmation : JAVA, C++, C#
+
+Echéances du projet :
+- [FAIT] les noms du binôme, un titre à votre projet par mail
+- un document d'analyse au format PDF à rendre pour le 04/12/2017 * °°
+- rapport d'avancement et documents de conception complétés pour le 18/12/2017 *
+- rapport d'avancement et documents de conception finaux pour le 15/01/2018 *
+- documents finaux - date à fixer - aux alentours de début février 2018 *
+
+* Les documents sont à rendre au format PDF par mail
+°° Le document d’analyse peut être un cahier des charges (présentation détaillée du sujet, fonctionnalités attendues, planning … etc …) auquel vous annexerez quelques premiers diagrammes de classe et autres documents de conception. Il n’y a pas de « nombre de pages » imposé.
+
+Consignes spéciales :
+- lorsque vous m’adressez un mail, mettez systématiquement votre binôme en copie
+- dans le sujet des mails que vous l’adressez, mettez systématiquement [POO] en début de sujet. Par exemple, [POO] Cahier des charges ou bien [POO] Rapport d’avancement 1 … etc …
+Bon courage !
+
+Cordialement,
+Sébastien Mavromatis.
