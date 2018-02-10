@@ -10,11 +10,15 @@
 #include "Log.hpp"
 #include "Util.hpp"
 #include "Move.hpp"
+#include "Error.hpp"
 
 void programBot(std::string directory, int port, unsigned id) {
     // std::to_string introduced in C++11
     std::string exePath = "./bot/" + directory + "/" + directory + ".exe "+ std::to_string(port) + " " + std::to_string(id);
-    system(exePath.c_str()); // TODO : Maybe an other function will be better for portability
+
+    if(system(exePath.c_str()) == -1) {  // TODO : Maybe an other function will be better for portability
+        throw Error();
+    }
 }
 
 Bot::Bot(std::string directory, unsigned x, unsigned y, unsigned id) {
@@ -97,10 +101,6 @@ void Bot::turn() {
     for(Move move : moves) {
         move.move(m_miners);
     }
-
-    // TODO : Kill bot and destroy all needed
-    if(m_miners.size() == 0)
-        std::cout << "BOT A DETRUIRE" << std::endl;
 }
 
 void Bot::addMiner(unsigned x, unsigned y, unsigned power) {
@@ -135,4 +135,8 @@ unsigned Bot::getPower() const {
     }
 
     return power;
+}
+
+void Bot::stopBot() {
+    m_socket->send("127.0.0.1", m_port, "END");
 }

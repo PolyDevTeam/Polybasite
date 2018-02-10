@@ -3,7 +3,7 @@ LIBS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -pthread
 CC= g++
 CFLAGS= -Wall -std=c++11
 EXECS= Polybasite.exe
-BOTS = RandomBot RandomBot
+BOTS = RandomBot RandomBot RandomBot RandomBot
 
 OBJ= out/ProgressBar.o \
 	 out/Error.o out/FatalError.o out/Move.o \

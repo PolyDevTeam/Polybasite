@@ -2,8 +2,8 @@
 
 ProgressBar::ProgressBar(const float percentage, const sf::Vector2f size)
         : m_percent(percentage),
-          m_size(size),
           m_color(sf::Color::White),
+          m_size(size),
           m_bar(4),
           m_texture(nullptr),
           m_textureRectangle(),
