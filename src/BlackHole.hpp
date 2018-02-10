@@ -7,7 +7,7 @@
 
 class BlackHole : public Entity {
 public:
-    static const unsigned BLACK_HOLE_PROB = 5;
+    static const unsigned BLACK_HOLE_PROB = 1;
 
     BlackHole();
     BlackHole(unsigned x, unsigned y);

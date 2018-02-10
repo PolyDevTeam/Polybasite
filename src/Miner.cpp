@@ -13,8 +13,7 @@ Miner::Miner() : Entity() {
 
 }
 
-Miner::Miner(unsigned owner, unsigned x, unsigned y) : m_owner(owner), Entity(x, y), m_power(0) {
-    Game::m_map.setEntity(this);
+Miner::Miner(unsigned owner, unsigned x, unsigned y) : Entity(x, y), m_owner(owner), m_power(0) {
 }
 
 Miner::~Miner() {
@@ -96,26 +95,26 @@ unsigned Miner::getOwner() const {
 }
 
 void Miner::interact(Miner *miner) {
-    std::cout << "INTERACT MINER" << std::endl;
+    LOG << "INTERACT MINER\n";
 
     Bot* bot = Game::m_bots[getOwner()];
     Bot* target = Game::m_bots[miner->getOwner()];
 
     if(this->getOwner() != miner->getOwner()) {
         if(getPower() == miner->getPower()) {
-            Game::m_map.setEntity(new Basite(m_x, m_y, 0));
-            Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
             bot->deleteMiner(this);
             target->deleteMiner(miner);
+            Game::m_map.setEntity(new Basite(m_x, m_y, 0));
+            Game::m_map.setEntity(new Basite(miner->getX(), miner->getY(), 0));
         }
         else if(getPower() > miner->getPower()) {
-            m_power = 0;
-            bot->addMiner(miner->getX(), miner->getY(), m_power - miner->getOwner());
+            bot->addMiner(miner->getX(), miner->getY(), m_power - miner->getPower());
             target->deleteMiner(miner);
+            m_power = 0;
         }
         else if(getPower() < miner->getPower()) {
-            miner->setPower(0);
-            bot->addMiner(m_x, m_y, miner->getPower() - m_power);
+            miner->setPower(miner->getPower() - getPower());
+            Game::m_map.setEntity(new Basite(m_x, m_y, 0));
             bot->deleteMiner(this);
         }
     }

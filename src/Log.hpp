@@ -17,7 +17,9 @@ public:
     // cf : https://tinyurl.com/yak7ub7z
     template <typename T>
     Log& operator<<(const T &val) {
+#ifdef DEBUG
         std::cout << val;
+#endif
         m_logFile << val;
         return *this;
     }

@@ -117,10 +117,6 @@ void Map::deserialize(std::string &serializable) {
 }
 
 void Map::createMap() {
-    // TODO : Tempory
-    unsigned max = 8;
-    unsigned min = 1;
-
     for (unsigned i = 0; i < m_width; ++i) {
         VEntity line;
 
@@ -131,7 +127,7 @@ void Map::createMap() {
                 m_blackHoleNumber++;
                 line.push_back(new BlackHole(i, j));
             } else {
-                unsigned power = rand() % (max - min) + min;
+                unsigned power = rand() % (Basite::MAX_POWER - Basite::MIN_POWER) + Basite::MIN_POWER;
                 line.push_back(new Basite(i, j, power));
             }
         }

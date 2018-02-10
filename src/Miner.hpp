@@ -4,7 +4,6 @@
 #include "Entity.hpp"
 #include "Color.hpp"
 
-// TODO : Maybe add owner id
 class Miner : public Entity {
 public:
     static const unsigned MAX_POWER = 8;

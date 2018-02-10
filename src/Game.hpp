@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 
@@ -29,14 +29,14 @@ public:
     static const unsigned SCREEN_HEIGHT = 650;
     static const unsigned MAX_TURN = 1500;
     static const unsigned SPEED_STEP = 50;
+    static const unsigned MAX_BOT = 4;
     static char** save_argv;
     static int save_argc;
 
     static GameState m_state;
     static sf::RenderWindow m_main_window;
     static Map m_map;
-    static vector<Score*> m_scores;
-    static std::vector<Bot*> m_bots;
+    static std::map<unsigned, Bot*> m_bots;
     static unsigned m_nb_turn;
     static unsigned m_turn_speed;
 

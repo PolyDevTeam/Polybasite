@@ -29,12 +29,12 @@ private:
     std::vector<sf::String> explode(const sf::String &str, sf::Uint32 delimiter);
     sf::Text createText(const sf::String &string) const;
 
-    std::vector<Line> m_lines;
-    sf::FloatRect m_bounds;
-    unsigned int m_characterSize;
     const sf::Font* m_font;
     sf::Color m_color;
     sf::Text::Style m_style;
+    unsigned int m_characterSize;
+    sf::FloatRect m_bounds;
+    std::vector<Line> m_lines;
 };
 
 #endif /* __RICHTEXT_HPP__ */

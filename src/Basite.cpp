@@ -7,6 +7,7 @@
 #include "Basite.hpp"
 #include "Color.hpp"
 #include "Util.hpp"
+#include "Log.hpp"
 
 Basite::Basite() : Entity(), m_power(0) {
 
@@ -66,7 +67,8 @@ void Basite::deserialize(std::string &serializable) {
 }
 
 void Basite::interact(Miner *miner) {
-    std::cout << "INTERACT BASITE" << std::endl;
+    LOG << "INTERACT BASITE\n";
+
     Bot* bot = Game::m_bots[miner->getOwner()];
 
     if(miner->getPower() >= m_power) {
