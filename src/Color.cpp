@@ -28,63 +28,56 @@ sf::Color plb::Color::selectRandomSingle() {
                 return sf::Color::Red;
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 2: // Blue
             if(!contain(sf::Color::Blue)) {
                 colorAlreadyPicked.push_back(sf::Color::Blue);
                 return sf::Color::Blue;
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 3: // Yellow
             if(!contain(sf::Color::Yellow)) {
                 colorAlreadyPicked.push_back(sf::Color::Yellow);
                 return sf::Color::Yellow;
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 4: // Magenta
             if(!contain(sf::Color::Magenta)) {
                 colorAlreadyPicked.push_back(sf::Color::Magenta);
                 return sf::Color::Magenta;
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 5: // Blue
             if(!contain(sf::Color(34, 187, 234))) {
                 colorAlreadyPicked.push_back(sf::Color(34, 187, 234));
                 return sf::Color(34, 187, 234);
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 6: // Brown
             if(!contain(sf::Color(153, 102, 51))) {
                 colorAlreadyPicked.push_back(sf::Color(153, 102, 51));
                 return sf::Color(153, 102, 51);
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 7: // Orange
             if(!contain(sf::Color(255, 153, 0))) {
                 colorAlreadyPicked.push_back(sf::Color(255, 153, 0));
                 return sf::Color(255, 153, 0);
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         case 0:
         case 8: // Purple
             if(!contain(sf::Color(204, 51, 255))) {
@@ -92,9 +85,8 @@ sf::Color plb::Color::selectRandomSingle() {
                 return sf::Color(204, 51, 255);
             }
             else {
-                selectRandomSingle();
+                return selectRandomSingle();
             }
-            break;
         default:
             return sf::Color::Black;
     }

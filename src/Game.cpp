@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <map>
 
 #include "Game.hpp"
 #include "Log.hpp"
@@ -14,7 +14,7 @@
 GameState Game::m_state = STATE_UNINITIALISED;
 sf::RenderWindow Game::m_main_window;
 Map Game::m_map(30, 30);
-std::vector <Bot*> Game::m_bots;
+std::map <unsigned, Bot*> Game::m_bots;
 
 unsigned Game::m_nb_turn = 0;
 unsigned Game::m_turn_speed = 200;
@@ -40,14 +40,14 @@ void Game::start(int argc, char *argv[]) {
 
     LOG << "[PolyBasite] START\n";
 
-    for (int i = 1; i < argc; ++i) {
+    for (int i = 0; i < argc - 1; ++i) {
         unsigned pos_x = rand() % m_map.getWidth();
         unsigned pos_y = rand() % m_map.getHeight();
 
-        Bot* bot = new Bot(argv[i], pos_x, pos_y, i - 1);
+        Bot* bot = new Bot(argv[i + 1], pos_x, pos_y, i);
         bot->setColor(plb::Color::selectRandomSingle());
 
-        Game::m_bots.push_back(bot);
+        Game::m_bots[i] = bot;
     }
 
     if(m_state == STATE_UNINITIALISED) {
@@ -83,7 +83,8 @@ void Game::restart() {
 
     m_map.clear();
 
-    for(Bot* bot : m_bots) {
+    for(std::map<unsigned, Bot*>::iterator it = m_bots.begin(); it != m_bots.end(); ++it) {
+        Bot* bot = it->second;
         bot->stopBot();
     }
 
@@ -102,10 +103,13 @@ void Game::quit() {
 
         // TODO : Error generated here
         // TODO : Fix all memory leaks
-        for(Bot* bot : Game::m_bots) {
+        for(std::map<unsigned, Bot*>::iterator it = m_bots.begin(); it != m_bots.end(); ++it) {
+            Bot* bot = it->second;
             bot->stopBot();
-//            delete bot;
+            delete bot;
         }
+
+        m_bots.clear();
     }
 }
 
@@ -120,12 +124,23 @@ void Game::loop() {
                 m_turn_speed += SPEED_STEP;
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                if(m_turn_speed >= 100) {
+                if(m_turn_speed >= SPEED_STEP) {
                     m_turn_speed -= SPEED_STEP;
                 }
             }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                Game::restart();
+
+            if(event.type == sf::Event::KeyReleased) {
+                if (event.key.code == sf::Keyboard::Space) {
+                    if(m_state == STATE_PAUSE) {
+                        m_state = STATE_PLAY;
+                    }
+                    else {
+                        m_state = STATE_PAUSE;
+                    }
+                }
+                else if(event.key.code == sf::Keyboard::Return) {
+                    Game::restart();
+                }
             }
         }
 
@@ -139,7 +154,7 @@ void Game::loop() {
         Score::drawLegend();
 
         // Draw bot names
-        if(Game::m_state == STATE_PLAY)
+        if(m_state == STATE_PLAY || m_state == STATE_PAUSE)
             Game::displayBotNames();
 
         // Draw map
@@ -168,13 +183,17 @@ void Game::displayBotNames() {
 
     RichText text(font);
 
-    for(unsigned i = 0; i < Game::m_bots.size(); ++i) {
-        Bot* bot = Game::m_bots[i];
+    unsigned i = 0;
+    for(std::map<unsigned, Bot*>::iterator it = m_bots.begin(); it != m_bots.end(); ++it) {
+        Bot* bot = it->second;
         text << bot->getColor() << bot->getName();
 
         // TODO : Add some security if bot got a long name
-        if(i < Game::m_bots.size() - 1)
+        if(i < Game::m_bots.size() - 1) {
             text << sf::Color::White << " vs ";
+        }
+
+        ++i;
     }
 
     sf::FloatRect textRect = text.getLocalBounds();
@@ -189,15 +208,22 @@ void Game::turn() {
     // Rotate black hole sprite
     BlackHole::m_rotation = ((BlackHole::m_rotation + 90) % 360);
 
-    for(Bot* bot : Game::m_bots) {
-        bot->turn();
+    // TODO : Remove all eliminated bot
+    for(std::map<unsigned, Bot*>::iterator it = m_bots.begin(); it != m_bots.end();) {
+        Bot* bot = it->second;
 
-        if(bot->getMinerNumber() == 0)
-            m_bots.erase(std::remove(m_bots.begin(), m_bots.end(), bot), m_bots.end());
+        if (bot->getMinerNumber() == 0) {
+            bot->stopBot();
+            it = Game::m_bots.erase (it);
+        }
+        else {
+            bot->turn();
+            ++it;
+        }
     }
 
     // TODO : Fix one turn logging
-    LOG << "[Polybasite] TURN N°" << m_nb_turn << '\n';
+    LOG << "[Polybasite] ROUND N°" << m_nb_turn << '\n';
 
     sf::sleep(sf::milliseconds(m_turn_speed));
 
@@ -222,11 +248,11 @@ void Game::displayWinner() {
     RichText winText(font);
 
     if(m_bots.size() > 0) {
-        Bot* botWin = m_bots[0];
-        for(unsigned i = 1; i < m_bots.size(); ++i) {
-            Bot* bot = m_bots[i];
+        Bot* botWin = m_bots.begin()->second;
+        for(std::map<unsigned, Bot*>::iterator it = ++m_bots.begin(); it != m_bots.end(); ++it) {
+            Bot* bot = it->second;
 
-            if(botWin->getPower() <= bot->getPower()) {
+            if(botWin->getPower() < bot->getPower()) {
                 botWin = bot;
             }
             else if(botWin->getPower() == bot->getPower()) {
@@ -246,7 +272,6 @@ void Game::displayWinner() {
                             break;
                         }
                     }
-
                 }
             }
         }
@@ -268,7 +293,8 @@ void Game::displayWinner() {
 
 void Game::displayScore() {
     int i = 0;
-    for(Bot* bot: m_bots) {
+    for(std::map<unsigned, Bot*>::iterator it = m_bots.begin(); it != m_bots.end(); ++it) {
+        Bot* bot = it->second;
         Score score(i, bot);
         score.draw();
         ++i;
