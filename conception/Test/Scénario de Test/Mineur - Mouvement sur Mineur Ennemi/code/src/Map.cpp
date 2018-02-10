@@ -23,57 +23,56 @@ Map::Map(unsigned width, unsigned height) {
 
         m_entities.push_back(line);
     }
-    setEntity(new Miner(0, 0, 5));
-    setEntity(new Miner(0, 1, 1));
-    setEntity(new Miner(0, 2, 3));
+    setEntity(new Miner(0, 0, 5, sf::Color::Red));
+    setEntity(new Miner(0, 1, 1, sf::Color::Red));
+    setEntity(new Miner(0, 2, 3, sf::Color::Red));
 
-    setEntity(new Basite(1, 0, 1));
-    setEntity(new Basite(1, 1, 5));
-    setEntity(new Basite(1, 2, 3));
+    setEntity(new Miner(1, 0, 1, sf::Color::Cyan));
+    setEntity(new Miner(1, 1, 5, sf::Color::Cyan));
+    setEntity(new Miner(1, 2, 3, sf::Color::Cyan));
 
 }
 
 void Map::update() {
     std::cout << "ACTION" <<std::endl;
 
-    // Mineur > Basite
-    Basite *b = (Basite *)m_entities[1][0];
-    std::cout << "basite power = "<< b->getPower() << std::endl;
+    // Mineur1 > Mineur2
+    Miner *m10 = (Miner *)m_entities[1][0];
+    std::cout << "basite power = "<< m10->getPower() << std::endl;
 
-    Miner *m = (Miner *)m_entities[0][0];
-    std::cout << "miner power = "<< m->getPower() << std::endl;
+    Miner *m00 = (Miner *)m_entities[0][0];
+    std::cout << "miner power = "<< m00->getPower() << std::endl;
 
-
-    if (m->getPower() > b->getPower()){
-        setEntity(new Miner(b->getX(), b->getY(), m->getPower() - b->getPower()));
-        m->setPower(0);
+    if (m00->getPower() > m10->getPower()){
+        setEntity(new Miner(1, 0, m00->getPower() - m10->getPower(), sf::Color::Red));
+        m00->setPower(0);
     }
 
-    // Mineur < Basite
-    b = (Basite *)m_entities[1][1];
-    std::cout << "basite power = "<< b->getPower() << std::endl;
+    // Mineur1 < Mineur2
+    Miner *m11 = (Miner *)m_entities[1][1];
+    std::cout << "basite power = "<< m10->getPower() << std::endl;
 
-    m = (Miner *)m_entities[0][1];
-    std::cout << "miner power = "<< m->getPower() << std::endl;
+    Miner *m01 = (Miner *)m_entities[0][1];
+    std::cout << "miner power = "<< m00->getPower() << std::endl;
 
-    if (m->getPower() < b->getPower()){
-        setEntity(new Basite(m->getX(), m->getY(), 0));
-        b->setPower(b->getPower() - m->getPower());
+    if (m11->getPower() > m01->getPower()){
+        setEntity(new Miner(0, 1, m11->getPower() - m01->getPower(), sf::Color::Cyan));
+        m11->setPower(0);
     }
 
+    // Mineur1 = Mineur2
+    Miner *m12 = (Miner *)m_entities[1][2];
+    std::cout << "basite power = "<< m10->getPower() << std::endl;
 
-    // Mineur = Basite
-    b = (Basite *)m_entities[1][2];
-    std::cout << "basite power = "<< b->getPower() << std::endl;
+    Miner *m02 = (Miner *)m_entities[0][2];
+    std::cout << "miner power = "<< m00->getPower() << std::endl;
 
-    m = (Miner *)m_entities[0][2];
-    std::cout << "miner power = "<< m->getPower() << std::endl;
+    if (m12->getPower() == m02->getPower()){
+        setEntity(new Basite(0, 2, 0));
+        setEntity(new Basite(1, 2, 0));
 
-    if (m->getPower() == b->getPower()){
-        setEntity(new Miner(b->getX(), b->getY(), 0));
-        m->setPower(0);
     }
-    
+
 }
 
 

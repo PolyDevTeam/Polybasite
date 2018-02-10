@@ -6,7 +6,7 @@
 class Miner : public Entity {
 public:
     static const unsigned MAX_POWER = 8;
-    Miner(unsigned x, unsigned y, unsigned power);
+    Miner(unsigned x, unsigned y, unsigned power, sf::Color c);
     virtual ~Miner();
 
     virtual void draw() const;
@@ -15,6 +15,7 @@ public:
 
 private:
     unsigned m_power;
+    sf::Color m_color;
 };
 
 #endif /* __MINER_HPP__ */

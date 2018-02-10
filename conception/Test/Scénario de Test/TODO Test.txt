@@ -4,7 +4,7 @@ Mineur
 - Mouvement Mineur sur
 	- Basite (attaque) -> OK
 	- autre Mineur Allié (don de puissance) -> OK
-	- autre Mineur Ennemi (attaque)
+	- autre Mineur Ennemi (attaque) -> OK
 	- BlackHole (attaque défaite obligatoire) -> OK
 
 - gain de puissance par tour -> OK

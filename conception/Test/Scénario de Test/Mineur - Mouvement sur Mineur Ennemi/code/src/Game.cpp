@@ -62,7 +62,7 @@ void Game::loop() {
 
         // Draw map
         Game::m_map.draw();
-        std::cout << " Test Mouvement Mineur sur Basite OK " << std::endl;
+        std::cout << " Test Mouvement Mineur sur Mineur Ennemi OK " << std::endl;
 
         Game::m_main_window.display();
         std::this_thread::sleep_for (std::chrono::seconds(3));

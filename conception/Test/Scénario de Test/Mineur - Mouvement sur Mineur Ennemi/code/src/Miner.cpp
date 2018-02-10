@@ -4,7 +4,7 @@
 #include "Miner.hpp"
 #include "Game.hpp"
 
-Miner::Miner(unsigned x, unsigned y, unsigned power) : Entity(x, y), m_power(power) {
+Miner::Miner(unsigned x, unsigned y, unsigned power, sf::Color c) : Entity(x, y), m_power(power), m_color(c) {
     Game::m_map.setEntity(this);
     std::cout << "- Miner en " << m_x << " " << m_y << std::endl;
 
@@ -28,7 +28,7 @@ void Miner::draw() const {
     foreground.setOrigin(sf::Vector2f((ENTITY_WIDTH - power) / 2, (ENTITY_HEIGHT - power) / 2));
     foreground.move(pos_x + MAX_POWER, pos_y + MAX_POWER);
 
-    rectangle.setFillColor(::Color::Red);
+    rectangle.setFillColor(m_color);
 
     Game::m_main_window.draw(rectangle);
     Game::m_main_window.draw(foreground);
