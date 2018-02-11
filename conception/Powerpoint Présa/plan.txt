@@ -1,0 +1,4 @@
+- notre sujet
+- nos specifications
+- nos difficultés
+- produit final
